@@ -7,12 +7,16 @@ const main = require('./config/database');
 const cookieParser = require('cookie-parser');
 const cors = require("cors");
 
+const authRouter = require('./routes/userAuthentication')
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
     origin: "http://localhost:4200",
     credentials: true
 }));
+
+app.use('/employee', authRouter)
 
 const healthRoutes = require("./routes/health.routes");
 app.use("/api/health", healthRoutes);
