@@ -1,1 +1,25 @@
-<p>login works!</p>
+<div class="login-container">
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h2>Login</h2>
+
+    <div>
+      <label>Email</label>
+      @if(loginForm.get('emailId')?.touched && loginForm.get('emailId')?.invalid){
+      <p>Email is required.</p>
+      }
+      <input type="email" formControlName="emailId">
+    </div>
+
+    <div>
+      <label>Password</label>
+      @if(loginForm.get('password')?.touched && loginForm.get('password')?.invalid){
+        <p>Password must be at least 6 characters.</p>
+      }
+      <input type="password" formControlName="password">
+    </div>
+    <button type="submit" [disabled]="loginForm.invalid">
+      Login
+    </button>
+  </form>
+</div>

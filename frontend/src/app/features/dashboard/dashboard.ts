@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef, signal } from '@angular/core';
 import { ApiService } from '../../core/services/api.services';
 
 @Component({
@@ -11,15 +11,15 @@ export class Dashboard implements OnInit {
   private apiService = inject(ApiService)
   private cdr = inject(ChangeDetectorRef);
 
-  msg = 'hello'
+  msg = signal<string>('')
 
   ngOnInit(): void {
 
     this.apiService.getHealth().subscribe({
       next: (response) => {
         console.log(response);
-        this.msg = response.message;
-        this.cdr.detectChanges();
+        this.msg.set(response.firstName);
+        // this.cdr.detectChanges();
       },
       error: (err) => {
         console.error(err);
