@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators} from '@angular/forms';
 import { inject } from '@angular/core';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import { inject } from '@angular/core';
 })
 export class Login {
   private fb = inject(FormBuilder)
+  private authService = inject(AuthService)
 
   loginForm = this.fb.group({
     emailId: ['', [Validators.required, Validators.email]],
@@ -22,6 +24,15 @@ export class Login {
       this.loginForm.markAllAsTouched();
       return;
     }
+
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (response)=>{
+        console.log(response);
+      },
+      error: (error)=>{
+        console.error(error)
+      }
+    });
     console.log(this.loginForm.value)
   }
 
