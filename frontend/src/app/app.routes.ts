@@ -8,6 +8,7 @@ import { RequestList } from './features/requests/request-list/request-list';
 import { PendingApprovals } from './features/approvals/pending-approvals/pending-approvals';
 import { Profile } from './features/profile/profile';
 import { NotFound } from './shared/not-found/not-found';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
     {
@@ -24,6 +25,7 @@ export const routes: Routes = [
     {
     path: 'dashboard',
     component: Dashboard,
+    canActivate: [authGuard]
     },
 
     {
