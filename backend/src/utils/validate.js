@@ -1,14 +1,14 @@
 const validator = require('validator');
 
 const validate = (data)=>{
-    const mandatoryField = ['name', 'emailId', 'password'];
+    const mandatoryField = ['firstName', 'email', 'password'];
     const isAllowed = mandatoryField.every((k)=>Object.keys(data).includes(k));
 
     if(!isAllowed){
         throw new Error("Complete the required fields");
     }
 
-    if(!validator.isEmail(data.emailId)){
+    if(!validator.isEmail(data.email)){
         throw new Error("Invalid email");
     }
 

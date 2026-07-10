@@ -2,24 +2,25 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const userSchema = new Schema({
-    name: {
+    firstName: {
         type:String, 
         required: true,
         minLength:3,
         maxLength:20
     },
-    emailId: {
+    lastName: {
+        type:String, 
+        required: true,
+        minLength:3,
+        maxLength:20
+    },
+    email: {
         type:String, 
         required: true,
         unique: true,
         trim: true,
         immutable: true,
         lowercase: true
-    },
-    age: {
-        type: Number,
-        min:5,
-        max:90
     },
     role: {
         type: String,
@@ -35,11 +36,17 @@ const userSchema = new Schema({
         type: String
     },
     isActive:{
-        type: String
+        type: Boolean,
+        default: true
     },
     photo:{
         type: String,
         default: "This is the default photo"
+    },
+    managerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        default: null
     }
 }, {timestamps: true});
 

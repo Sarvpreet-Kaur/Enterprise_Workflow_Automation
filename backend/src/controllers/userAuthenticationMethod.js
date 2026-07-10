@@ -7,15 +7,15 @@ const register = async(req, res)=>{
     try{
         validate(req.body);
 
-        const {name, emailId, password} = req.body;
+        const {firstName, email, password} = req.body;
 
         req.body.password = await bcrypt.hash(password, 10);
 
         const user = await User.create(req.body)
-        const token = await jwt.sign({_id:user._id, emailId: emailId, role: 'employee'},process.env.JWT_SECRET_KEY, {expiresIn: 60*60});
+        const token = await jwt.sign({_id:user._id, email: email, role: 'employee'},process.env.JWT_SECRET_KEY, {expiresIn: 60*60});
         const reply = {
-            name: name,
-            emailId: emailId,
+            firstName: firstName,
+            email: email,
             _id: user._id,
             role: user.role
         }
@@ -31,21 +31,21 @@ const register = async(req, res)=>{
 
 const login = async(req, res)=>{
     try{
-        const {emailId, password} = req.body;
+        const {email, password} = req.body;
 
-        if(!emailId) throw new Error("Invalid Credentials");
+        if(!email) throw new Error("Invalid Credentials");
         if(!password) throw new Error("Invalid Credentials");
 
-        const user = await User.findOne({emailId});
+        const user = await User.findOne({email});
 
         const matched = await bcrypt.compare(password, user.password);
         if(!matched) throw new Error("Invalid Credentials");
 
-        const token = await jwt.sign({_id:user._id, emailId: emailId, role: user.role},process.env.JWT_SECRET_KEY, {expiresIn: 60*60});
+        const token = await jwt.sign({_id:user._id, email: email, role: user.role},process.env.JWT_SECRET_KEY, {expiresIn: 60*60});
 
         const reply = {
-            name: user.name,
-            emailId: user.emailId,
+            firstName: user.firstName,
+            email: user.email,
             _id: user._id,
             role: user.role
         }
@@ -75,7 +75,7 @@ const adminRegister = async(req, res)=>{
     try{
         validate(req.body);
 
-        const {name, emailId, password} = req.body;
+        const {firstName, email, password} = req.body;
         const existingAdmin = await User.findOne({role: 'admin'});
         console.log(existingAdmin)
 
@@ -96,10 +96,10 @@ const adminRegister = async(req, res)=>{
         req.body.role = 'admin';
 
         const user = await User.create(req.body)
-        // const token = await jwt.sign({_id:user._id, emailId: emailId, role: user.role},process.env.JWT_SECRET_KEY, {expiresIn: 60*60});
+        // const token = await jwt.sign({_id:user._id, email: email, role: user.role},process.env.JWT_SECRET_KEY, {expiresIn: 60*60});
         const reply = {
-            name: name,
-            emailId: emailId,
+            firstName: firstName,
+            email: email,
             _id: user._id,
             role: user.role
         }
@@ -115,7 +115,7 @@ const adminRegister = async(req, res)=>{
 
 const setupAdmin = async (req, res) => {
     try {
-        const { name, emailId, password } = req.body;
+        const { firstName, email, password } = req.body;
 
         //for the first time secret key should be present in header
         if (req.headers['x-admin-secret'] !== process.env.ADMIN_SECRET) {
@@ -128,7 +128,7 @@ const setupAdmin = async (req, res) => {
         }
 
         // Validate input
-        if (!name || !emailId || !password) {
+        if (!firstName || !email || !password) {
             return res.status(400).send("All fields are required");
         }
 
@@ -137,8 +137,8 @@ const setupAdmin = async (req, res) => {
 
         // Create admin
         const admin = await User.create({
-            name,
-            emailId,
+            firstName,
+            email,
             password: hashedPassword,
             role: 'admin'
         });
@@ -166,8 +166,8 @@ const deleteProfile = async(req, res)=>{
 const check = async(req, res)=>{
     try{
         const reply = {
-            name: req.result.name,
-            emailId: req.result.emailId,
+            firstName: req.result.firstName,
+            email: req.result.email,
             _id: req.result._id,
             role: req.result.role
         }
@@ -185,8 +185,8 @@ const getProfile = async (req, res) => {
 
     res.status(200).json({
         user: {
-            name: user.name,
-            emailId: user.emailId,
+            firstName: user.firstName,
+            email: user.email,
             age: user.age,
             role: user.role,
             photo: user.photo,

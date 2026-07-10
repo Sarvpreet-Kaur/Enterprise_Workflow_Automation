@@ -81,11 +81,11 @@
 
                     <input
                         type="email"
-                        formControlName="emailId"
+                        formControlName="email"
                         placeholder="Enter your email">
 
-                    @if(loginForm.get('emailId')?.touched &&
-                    loginForm.get('emailId')?.invalid){
+                    @if(loginForm.get('email')?.touched &&
+                    loginForm.get('email')?.invalid){
 
                         <small class="error">
                             Email is required.
