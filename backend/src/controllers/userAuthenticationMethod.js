@@ -7,14 +7,16 @@ const register = async(req, res)=>{
     try{
         validate(req.body);
 
-        const {firstName, email, password} = req.body;
+        const {firstName, email, password, lastName, role} = req.body;
 
         req.body.password = await bcrypt.hash(password, 10);
 
         const user = await User.create(req.body)
-        const token = await jwt.sign({_id:user._id, email: email, role: 'employee'},process.env.JWT_SECRET_KEY, {expiresIn: 60*60});
+        const token = await jwt.sign({_id:user._id, email: email, role: role},process.env.JWT_SECRET_KEY, {expiresIn: 60*60});
         const reply = {
             firstName: firstName,
+            lastName: lastName,
+            role: role,
             email: email,
             _id: user._id,
             role: user.role
@@ -26,7 +28,7 @@ const register = async(req, res)=>{
             message: "Successfully registered and login"
         })
     }
-    catch(err){res.status(400).send("Error: "+err.message)}
+    catch(err){res.status(400).send("Error in registering: "+err.message)}
 }
 
 const login = async(req, res)=>{
@@ -75,7 +77,7 @@ const adminRegister = async(req, res)=>{
     try{
         validate(req.body);
 
-        const {firstName, email, password} = req.body;
+        const {firstName, lastName, email, password} = req.body;
         const existingAdmin = await User.findOne({role: 'admin'});
         console.log(existingAdmin)
 
@@ -99,6 +101,7 @@ const adminRegister = async(req, res)=>{
         // const token = await jwt.sign({_id:user._id, email: email, role: user.role},process.env.JWT_SECRET_KEY, {expiresIn: 60*60});
         const reply = {
             firstName: firstName,
+            lastName: lastName,
             email: email,
             _id: user._id,
             role: user.role
@@ -115,7 +118,7 @@ const adminRegister = async(req, res)=>{
 
 const setupAdmin = async (req, res) => {
     try {
-        const { firstName, email, password } = req.body;
+        const { firstName, lastName, email, password } = req.body;
 
         //for the first time secret key should be present in header
         if (req.headers['x-admin-secret'] !== process.env.ADMIN_SECRET) {
@@ -138,6 +141,7 @@ const setupAdmin = async (req, res) => {
         // Create admin
         const admin = await User.create({
             firstName,
+            lastName,
             email,
             password: hashedPassword,
             role: 'admin'
@@ -149,7 +153,7 @@ const setupAdmin = async (req, res) => {
         });
 
     } catch (err) {
-        res.status(500).send("Error: " + err.message);
+        res.status(500).send("Error in setup Admin: " + err.message);
     }
 }
 
@@ -186,6 +190,7 @@ const getProfile = async (req, res) => {
     res.status(200).json({
         user: {
             firstName: user.firstName,
+            id: user._id,
             email: user.email,
             age: user.age,
             role: user.role,
