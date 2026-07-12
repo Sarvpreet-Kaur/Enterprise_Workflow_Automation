@@ -1,0 +1,10 @@
+.user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 450px;
+}
+
+mat-form-field {
+    width: 100%;
+}

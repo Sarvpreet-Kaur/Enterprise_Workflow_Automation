@@ -1,0 +1,134 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit User' : 'Add User' }}</h2>
+
+<mat-dialog-content>
+
+    <form [formGroup]="userForm" class="user-form">
+
+        <!-- First Name -->
+        <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+
+            <input matInput formControlName="firstName">
+
+            <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">
+                First Name is required
+            </mat-error>
+
+            <mat-error *ngIf="userForm.get('firstName')?.hasError('minlength')">
+                Minimum 2 characters required
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Last Name -->
+        <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+
+            <input matInput formControlName="lastName">
+
+            <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">
+                Last Name is required
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+
+            <input matInput type="email" formControlName="email">
+
+            <mat-error *ngIf="userForm.get('email')?.hasError('required')">
+                Email is required
+            </mat-error>
+
+            <mat-error *ngIf="userForm.get('email')?.hasError('email')">
+                Enter a valid email
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+
+            <input matInput type="password" formControlName="password">
+
+            <mat-error *ngIf="userForm.get('password')?.hasError('required')">
+                Password is required
+            </mat-error>
+
+            <mat-error *ngIf="userForm.get('password')?.hasError('minlength')">
+                Minimum 6 characters required
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Department -->
+        <mat-form-field appearance="outline">
+            <mat-label>Department</mat-label>
+
+            <mat-select formControlName="department">
+
+                <mat-option value="IT">IT</mat-option>
+                <mat-option value="HR">HR</mat-option>
+                <mat-option value="Finance">Finance</mat-option>
+
+            </mat-select>
+
+            <mat-error *ngIf="userForm.get('department')?.hasError('required')">
+                Department is required
+            </mat-error>
+
+        </mat-form-field>
+
+        <!-- Role -->
+        <mat-form-field appearance="outline">
+            <mat-label>Role</mat-label>
+
+            <mat-select formControlName="role">
+
+                <mat-option value="employee">Employee</mat-option>
+                <mat-option value="manager">Manager</mat-option>
+                <mat-option value="admin">Admin</mat-option>
+
+            </mat-select>
+
+        </mat-form-field>
+
+        <!-- Manager -->
+        <mat-form-field appearance="outline" *ngIf="userForm.get('role')?.value === 'employee'">
+
+            <mat-label>Manager</mat-label>
+
+            <mat-select formControlName="managerId">
+
+                <mat-option *ngFor="let manager of managers" [value]="manager._id">
+
+                    {{ manager.firstName }} {{ manager.lastName }}
+
+                </mat-option>
+
+            </mat-select>
+
+            <mat-error *ngIf="userForm.get('managerId')?.hasError('required')">
+                Please select a manager
+            </mat-error>
+
+        </mat-form-field>
+
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+    <button mat-button mat-dialog-close>
+
+        Cancel
+
+    </button>
+
+    <button mat-raised-button color="primary" (click)="saveUser()" [disabled]="userForm.invalid">
+
+        {{ isEditMode ? 'Edit User' : 'Add User' }}
+
+    </button>
+
+</mat-dialog-actions>

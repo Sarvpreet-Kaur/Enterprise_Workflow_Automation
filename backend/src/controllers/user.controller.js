@@ -62,11 +62,11 @@ const getUsers = async(req, res)=>{
         if (req.user.role === "manager") {
             query.managerId = req.user._id;
         }
-        const user = await User.find(query).skip(skip).limit(limit);
+        const user = await User.find(query).select("-password").skip(skip).limit(limit);
 
         const totalRecords = await User.countDocuments(query);
         const totalPages = Math.ceil(totalRecords/limit);
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             data: user,
             pagination: {
@@ -88,8 +88,8 @@ const getUsers = async(req, res)=>{
 const getUserById = async(req, res)=>{
     try{
         const id = req.params.id
-        const user = await User.findById(id)
-        res.status(201).json({
+        const user = await User.findById(id).select("-password");
+        res.status(200).json({
             success: true,
             data: user
         });
@@ -106,8 +106,11 @@ const updateUser = async(req, res)=>{
     try{
         const data = req.body
         const id = req.params.id
+        if (data.password) {
+            data.password = await bcrypt.hash(data.password, 10);
+        }
         const user = await User.findByIdAndUpdate(id, data, {new: true})
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             data: user
         });
@@ -123,11 +126,11 @@ const updateUser = async(req, res)=>{
 const changeUserStatus = async(req, res)=>{
     try{
         const id = req.params.id
-        const status = req.params.status
+        const status = req.params.status === "true"
         const user = await User.findById(id)
         user.isActive = status
         await user.save();
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             data: user
         });
@@ -144,7 +147,7 @@ const deleteUser = async(req, res)=>{
     try{
         const id = req.params.id
         const user = await User.findByIdAndDelete(id)
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             data: user
         });

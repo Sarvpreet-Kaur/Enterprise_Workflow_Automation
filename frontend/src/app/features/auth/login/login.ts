@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators} from '@angular/forms';
 import { inject } from '@angular/core';
@@ -22,6 +22,14 @@ export class Login {
     password: ['', [Validators.required, Validators.minLength(6)]]
   })
 
+  error = signal<string>('')
+
+  ngOnInit() {
+    this.loginForm.valueChanges.subscribe(() => {
+      this.error.set('');
+    });
+  }
+
   onSubmit(){
     if(this.loginForm.invalid){
       this.loginForm.markAllAsTouched();
@@ -37,6 +45,11 @@ export class Login {
 
       },
       error: (error)=>{
+        if (error.status === 401) {
+          this.error.set('Invalid Credentials');
+        } else {
+          this.error.set('Something went wrong');
+        }
         console.error(error)
       }
     });

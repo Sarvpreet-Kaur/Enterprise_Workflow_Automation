@@ -15,16 +15,7 @@ export class Dashboard implements OnInit {
 
   ngOnInit(): void {
 
-    this.apiService.getHealth().subscribe({
-      next: (response) => {
-        console.log(response);
-        this.msg.set(response.firstName);
-        // this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    });
+    
 
   }
 }

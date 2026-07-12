@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+}
+
+th {
+    font-weight: 600;
+}
+
+.mat-column-actions {
+    width: 120px;
+}
+.filters {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+mat-form-field {
+    width: 220px;
+}
