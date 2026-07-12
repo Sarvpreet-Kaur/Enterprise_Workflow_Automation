@@ -9,10 +9,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { UserService } from '../../../core/services/user.service';
 import { User, CreateUserRequest } from '../../../core/models/user.model';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-user-form-dialog',
-  imports: [
+  imports: [MatIconModule,
     CommonModule,
     MatDialogModule,
     MatFormFieldModule,
@@ -86,7 +87,10 @@ export class UserFormDialog implements OnInit {
       managerId: this.data!.managerId,
     });
 
-    this.userForm.controls.password.clearValidators();
+    this.userForm.controls.password.setValidators([
+        Validators.minLength(6),
+        Validators.maxLength(50),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)]);
     this.userForm.controls.password.updateValueAndValidity();
   }
 

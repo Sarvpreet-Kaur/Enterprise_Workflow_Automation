@@ -1,14 +1,17 @@
-<h2 mat-dialog-title>{{ isEditMode ? 'Edit User' : 'Add User' }}</h2>
+<h2 mat-dialog-title class="dialog-title">
+    {{ isEditMode ? 'Edit User' : 'Add User' }}
+</h2>
 
-<mat-dialog-content>
+<mat-dialog-content class="dialog-content">
 
     <form [formGroup]="userForm" class="user-form">
 
         <!-- First Name -->
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="form-field">
+
             <mat-label>First Name</mat-label>
 
-            <input matInput formControlName="firstName">
+            <input matInput formControlName="firstName" placeholder="Enter first name">
 
             <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">
                 First Name is required
@@ -17,24 +20,30 @@
             <mat-error *ngIf="userForm.get('firstName')?.hasError('minlength')">
                 Minimum 2 characters required
             </mat-error>
+
         </mat-form-field>
 
+
         <!-- Last Name -->
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="form-field">
+
             <mat-label>Last Name</mat-label>
 
-            <input matInput formControlName="lastName">
+            <input matInput formControlName="lastName" placeholder="Enter last name">
 
             <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">
                 Last Name is required
             </mat-error>
+
         </mat-form-field>
 
+
         <!-- Email -->
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="form-field">
+
             <mat-label>Email</mat-label>
 
-            <input matInput type="email" formControlName="email">
+            <input matInput type="email" formControlName="email" placeholder="Enter email address">
 
             <mat-error *ngIf="userForm.get('email')?.hasError('required')">
                 Email is required
@@ -43,13 +52,16 @@
             <mat-error *ngIf="userForm.get('email')?.hasError('email')">
                 Enter a valid email
             </mat-error>
+
         </mat-form-field>
 
+
         <!-- Password -->
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="form-field">
+
             <mat-label>Password</mat-label>
 
-            <input matInput type="password" formControlName="password">
+            <input matInput type="password" formControlName="password" placeholder="Enter password">
 
             <mat-error *ngIf="userForm.get('password')?.hasError('required')">
                 Password is required
@@ -58,10 +70,17 @@
             <mat-error *ngIf="userForm.get('password')?.hasError('minlength')">
                 Minimum 6 characters required
             </mat-error>
+
+            <mat-error *ngIf="userForm.get('password')?.hasError('pattern')">
+                It must contain a special char, a small case, a capital case and a number
+            </mat-error>
+
         </mat-form-field>
 
+
         <!-- Department -->
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="form-field">
+
             <mat-label>Department</mat-label>
 
             <mat-select formControlName="department">
@@ -78,8 +97,10 @@
 
         </mat-form-field>
 
+
         <!-- Role -->
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="form-field">
+
             <mat-label>Role</mat-label>
 
             <mat-select formControlName="role">
@@ -92,8 +113,10 @@
 
         </mat-form-field>
 
+
         <!-- Manager -->
-        <mat-form-field appearance="outline" *ngIf="userForm.get('role')?.value === 'employee'">
+        <mat-form-field appearance="outline" class="form-field manager-field"
+            *ngIf="userForm.get('role')?.value === 'employee'">
 
             <mat-label>Manager</mat-label>
 
@@ -117,15 +140,16 @@
 
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
 
-    <button mat-button mat-dialog-close>
+<mat-dialog-actions align="end" class="dialog-actions">
+
+    <button mat-stroked-button mat-dialog-close class="cancel-btn">
 
         Cancel
 
     </button>
 
-    <button mat-raised-button color="primary" (click)="saveUser()" [disabled]="userForm.invalid">
+    <button mat-raised-button color="primary" class="save-btn" (click)="saveUser()" [disabled]="userForm.invalid">
 
         {{ isEditMode ? 'Edit User' : 'Add User' }}
 

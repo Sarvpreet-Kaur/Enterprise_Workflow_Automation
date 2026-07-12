@@ -16,10 +16,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { UserFormDialog } from '../user-form-dialog/user-form-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from '../../../shared/confirmation-dialog/confirmation-dialog';
+import { CommonModule, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-user-list',
   imports: [
+    CommonModule,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
@@ -29,6 +31,7 @@ import { ConfirmationDialog } from '../../../shared/confirmation-dialog/confirma
     ReactiveFormsModule,
     MatInputModule,
     MatPaginatorModule,
+    NgClass
   ],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css',
@@ -106,7 +109,10 @@ export class UserList implements OnInit, AfterViewInit {
 
   openAddDialog() {
     const dialogRef = this.dialog.open(UserFormDialog, {
-      width: '600px',
+      width: '800px',
+      maxWidth: '95vw',
+      maxHeight: '90vh',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -118,7 +124,10 @@ export class UserList implements OnInit, AfterViewInit {
 
   openEditDialog(user: User) {
     const dialogRef = this.dialog.open(UserFormDialog, {
-      width: '600px',
+      width: '800px',
+      maxWidth: '95vw',
+      maxHeight: '90vh',
+      disableClose: true,
       data: user,
     });
 
