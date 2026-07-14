@@ -4,6 +4,7 @@ const teamRouter = express.Router();
 const authMiddleware = require("../middleware/authMiddleware")
 const roleMiddleware = require("../middleware/roleMiddleware");
 const { ROLES } = require("../constants/roles");
+const {createTeam, getTeams, getTeamById, updateTeam, deleteTeam} = require('../controllers/team.controller')
 
 teamRouter.use(authMiddleware);
 teamRouter.use(roleMiddleware(ROLES.ADMIN));

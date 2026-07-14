@@ -9,7 +9,7 @@ const createTeam = async(req, res, next)=>{
         });
     }
     catch(err){
-        next(error)
+        next(err)
     }
 }
 
@@ -22,7 +22,7 @@ const getTeams = async(req, res, next)=>{
         })
     }
     catch(err){
-        next(error)
+        next(err)
     }
 }
 
@@ -35,7 +35,7 @@ const getTeamById = async(req, res, next)=>{
         })
     }
     catch(err){
-        next(error)
+        next(err)
     }
 }
 
@@ -48,7 +48,7 @@ const updateTeam = async(req, res, next)=>{
         })
     }
     catch(err){
-        next(error)
+        next(err)
     }
 }
 
@@ -61,7 +61,7 @@ const deleteTeam = async(req, res, next)=>{
         })
     }
     catch(err){
-        next(error)
+        next(err)
     }
 }
-module.expors = {createTeam, getTeams, getTeamById, updateTeam, deleteTeam}
+module.exports = {createTeam, getTeams, getTeamById, updateTeam, deleteTeam}

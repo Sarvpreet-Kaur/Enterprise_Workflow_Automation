@@ -11,6 +11,7 @@ const errorMiddleware = require('./middleware/errorMiddleware');
 
 const authRouter = require('./routes/userAuthentication')
 const userRouter = require('./routes/user.routes')
+const teamRouter = require('./routes/teams.routes')
 
 app.use(express.json());
 app.use(cookieParser());
@@ -21,6 +22,7 @@ app.use(cors({
 
 app.use('/employee', authRouter)
 app.use('/user', userRouter)
+app.use('/teams', teamRouter)
 
 app.use(errorMiddleware)
 

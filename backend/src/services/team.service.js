@@ -10,18 +10,26 @@ exports.createTeam = async(req, res)=>{
         throw new ApiError(409, "Name already exists")
     }
 
-    const manager = await User.findById(data.managerId)
+    const manager = await User.findById(data.manager)
     if(!manager || manager.role !== ROLES.MANAGER || !manager.isActive){
         throw new ApiError(404, "Manager not found")
     }
 
-    const admin = await User.findById(data.adminId)
+    const admin = await User.findById(data.admin)
     if(!admin || admin.role !== ROLES.ADMIN || !admin.isActive){
         throw new ApiError(404, "Admin not found")
     }
 
-    const Team = await Team.create(data)
-    return Team
+    const team = await Team.create({
+        name: data.name,
+        department: data.department,
+        manager: manager._id,
+        admin: admin._id
+    });
+
+    await User.findByIdAndUpdate(manager._id, {$addToSet: {teams: team._id}});
+    await User.findByIdAndUpdate(admin._id, {$addToSet: {teams: team._id}})
+    return team
 }
 
 exports.getTeams = async () => {
@@ -99,5 +107,8 @@ exports.deleteTeam = async (id) => {
         throw new ApiError(404, "Team not found.");
     }
     team.isActive = false;
+
+    await User.findByIdAndUpdate(team.manager, {$pull: {teams: team._id}})
+    await User.findByIdAndUpdate(team.admin, {$pull: {teams: team._id}})
     await team.save();
 };

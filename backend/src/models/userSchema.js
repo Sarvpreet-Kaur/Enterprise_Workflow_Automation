@@ -34,7 +34,6 @@ const userSchema = new Schema({
     },
     department:{
         type: String,
-        required: true, 
         enum: ["Engineering", "HR", "Finance", "Operations", "IT"]
     },
     isActive:{
@@ -45,11 +44,10 @@ const userSchema = new Schema({
         type: String,
         default: "This is the default photo"
     },
-    team: {
+    teams: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Team",
-        default: null
-    }
+        ref: "Team"
+    }]
 }, {timestamps: true});
 
 const user = mongoose.model("User", userSchema);

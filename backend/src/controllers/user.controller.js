@@ -27,12 +27,7 @@ const getUsers = async(req, res)=>{
         res.status(200).json({
             success: true,
             data: user,
-            pagination: {
-                totalRecords,
-                currentPage: page,
-                totalPages,
-                pageSize: limit
-            }
+            pagination: pagination
         });
     }
     catch(err){
