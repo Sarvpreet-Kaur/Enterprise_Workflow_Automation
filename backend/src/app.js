@@ -7,6 +7,8 @@ const main = require('./config/database');
 const cookieParser = require('cookie-parser');
 const cors = require("cors");
 
+const errorMiddleware = require('./middleware/errorMiddleware');
+
 const authRouter = require('./routes/userAuthentication')
 const userRouter = require('./routes/user.routes')
 
@@ -20,8 +22,7 @@ app.use(cors({
 app.use('/employee', authRouter)
 app.use('/user', userRouter)
 
-const healthRoutes = require("./routes/health.routes");
-app.use("/api/health", healthRoutes);
+app.use(errorMiddleware)
 
 const initializeConnection = async () => {
     try {

@@ -1,18 +1,10 @@
 const User = require("../models/userSchema")
 const bcrypt = require("bcrypt")
+const userService = require("../services/user.service")
 
 const createUser = async(req, res)=>{
     try{
-        const data = req.body
-        const existingUser = await User.findOne({email: data.email});
-        if(existingUser){
-            throw new Error("Email already exists")
-        }
-
-        const hashedPassword = await bcrypt.hash(data.password, 10);
-        data.password = hashedPassword
-
-        const user = await User.create(data)
+        const user = await userService.createUser(req)
         res.status(201).json({
             success: true,
             data: user
@@ -28,44 +20,10 @@ const createUser = async(req, res)=>{
 
 const getUsers = async(req, res)=>{
     try{
-        console.log(req.user)
-        const search = req.query.search;
-        const role = req.query.role;
-        const department = req.query.department;
-        const status = req.query.status;
+        const result = (await userService.getUsers(req))
+        const user = result.data
+        const pagination = result.pagination
 
-        const page = Number(req.query.page) || 1;
-        const limit = Number(req.query.limit) || 10;
-        const skip = (page-1)*limit;
-
-        const query = {};
-        if (search) {
-            query.$or = [
-                { firstName: { $regex: search, $options: "i" }},
-                {lastName: {$regex: search,$options: "i"}},
-                {email: {$regex: search,$options: "i"}}
-            ];
-        }
-
-        if(role){
-            query.role = role
-        }
-
-        if(status !== undefined){
-            query.isActive = status==='true'
-        }
-
-        if(department){
-            query.department = department
-        }
-
-        if (req.user.role === "manager") {
-            query.managerId = req.user._id;
-        }
-        const user = await User.find(query).select("-password").skip(skip).limit(limit);
-
-        const totalRecords = await User.countDocuments(query);
-        const totalPages = Math.ceil(totalRecords/limit);
         res.status(200).json({
             success: true,
             data: user,
@@ -87,8 +45,7 @@ const getUsers = async(req, res)=>{
 
 const getUserById = async(req, res)=>{
     try{
-        const id = req.params.id
-        const user = await User.findById(id).select("-password");
+        const user = await userService.getUserById(req)
         res.status(200).json({
             success: true,
             data: user
@@ -104,12 +61,7 @@ const getUserById = async(req, res)=>{
 
 const updateUser = async(req, res)=>{
     try{
-        const data = req.body
-        const id = req.params.id
-        if (data.password) {
-            data.password = await bcrypt.hash(data.password, 10);
-        }
-        const user = await User.findByIdAndUpdate(id, data, {new: true})
+        const user = await userService.updateUser(req)
         res.status(200).json({
             success: true,
             data: user
@@ -125,11 +77,7 @@ const updateUser = async(req, res)=>{
 
 const changeUserStatus = async(req, res)=>{
     try{
-        const id = req.params.id
-        const status = req.params.status === "true"
-        const user = await User.findById(id)
-        user.isActive = status
-        await user.save();
+        const user = await userService.changeUserStatus(req)
         res.status(200).json({
             success: true,
             data: user
@@ -145,8 +93,7 @@ const changeUserStatus = async(req, res)=>{
 
 const deleteUser = async(req, res)=>{
     try{
-        const id = req.params.id
-        const user = await User.findByIdAndDelete(id)
+        const user = await userService.deleteUser(req)
         res.status(200).json({
             success: true,
             data: user
@@ -159,6 +106,5 @@ const deleteUser = async(req, res)=>{
         })
     }
 }
-
 
 module.exports = {createUser, getUsers, getUserById, updateUser, changeUserStatus, deleteUser}

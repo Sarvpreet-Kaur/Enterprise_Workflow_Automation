@@ -33,7 +33,9 @@ const userSchema = new Schema({
         required: true
     },
     department:{
-        type: String
+        type: String,
+        required: true, 
+        enum: ["Engineering", "HR", "Finance", "Operations", "IT"]
     },
     isActive:{
         type: Boolean,
@@ -43,12 +45,12 @@ const userSchema = new Schema({
         type: String,
         default: "This is the default photo"
     },
-    managerId: {
+    team: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "Team",
         default: null
     }
 }, {timestamps: true});
 
-const user = mongoose.model("user", userSchema);
+const user = mongoose.model("User", userSchema);
 module.exports = user;
