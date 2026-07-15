@@ -8,8 +8,9 @@ const roleMiddleware = require("../middleware/roleMiddleware")
 const {createRequest} = require("../controllers/request.controller")
 // Manager & Employee
 requestRouter.post("/", authMiddleware, roleMiddleware(ROLES.MANAGER, ROLES.EMPLOYEE), createRequest);
-// requestRouter.put("/:id", authMiddleware, roleMiddleware(ROLES.MANAGER, ROLES.EMPLOYEE), updateRequest);
-// requestRouter.patch("/:id/:cancel", authMiddleware, roleMiddleware(ROLES.MANAGER, ROLES.EMPLOYEE), changeRequestStatus);
+requestRouter.put("/:id", authMiddleware, roleMiddleware(ROLES.MANAGER, ROLES.EMPLOYEE), updateRequest);
+requestRouter.patch("/:id/submit", authMiddleware, roleMiddleware(ROLES.MANAGER, ROLES.EMPLOYEE), submitRequest);
+requestRouter.patch("/:id/:cancel", authMiddleware, roleMiddleware(ROLES.MANAGER, ROLES.EMPLOYEE), changeRequestStatus);
 // requestRouter.delete("/:id", authMiddleware, roleMiddleware(ROLES.MANAGER, ROLES.EMPLOYEE), deleteRequest);
 
 // //All 

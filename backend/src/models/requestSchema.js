@@ -44,11 +44,16 @@ const requestSchema = new mongoose.Schema(
         required: true
     },
 
+    team: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Team",
+        required: true
+    },
+
     currentApprover: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-
     submittedAt: Date
 }, {timestamps: true});
 
