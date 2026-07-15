@@ -12,17 +12,18 @@ const errorMiddleware = require('./middleware/errorMiddleware');
 const authRouter = require('./routes/userAuthentication')
 const userRouter = require('./routes/user.routes')
 const teamRouter = require('./routes/teams.routes')
+const workflowRouter = require('./routes/workflow.routes');
+const requestRouter = require('./routes/request.routes');
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-    origin: "http://localhost:4200",
-    credentials: true
-}));
+app.use(cors({origin: "http://localhost:4200", credentials: true}));
 
 app.use('/employee', authRouter)
 app.use('/user', userRouter)
 app.use('/teams', teamRouter)
+app.use('/workflow', workflowRouter)
+app.use('/requests', requestRouter)
 
 app.use(errorMiddleware)
 

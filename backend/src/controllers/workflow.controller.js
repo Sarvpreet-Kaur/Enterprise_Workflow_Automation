@@ -13,9 +13,9 @@ const createWorkflow = async (req, res, next) => {
     }
 };
 
-const getAllWorkflows = async (req, res, next) => {
+const getWorkflows = async (req, res, next) => {
     try {
-        const workflows = await workflowService.getAllWorkflows();
+        const workflows = await workflowService.getWorkflows();
         return res.status(200).json({
             success: true,
             count: workflows.length,
@@ -64,4 +64,4 @@ const deleteWorkflow = async(req, res, next)=>{
     }
 }
 
-module.exports = {createWorkflow, getAllWorkflows, getWorkflowById}
+module.exports = {createWorkflow, getWorkflows, getWorkflowById, updateWorkflow, deleteWorkflow}

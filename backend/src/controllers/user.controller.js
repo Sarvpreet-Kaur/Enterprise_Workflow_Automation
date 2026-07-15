@@ -88,7 +88,7 @@ const changeUserStatus = async(req, res)=>{
 
 const deleteUser = async(req, res)=>{
     try{
-        const user = await userService.deleteUser(req)
+        const user = await userService.deleteUser(req.params.id)
         res.status(200).json({
             success: true,
             data: user

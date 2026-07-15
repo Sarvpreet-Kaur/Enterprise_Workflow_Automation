@@ -12,18 +12,16 @@ exports.createUser = async (req) => {
         throw new ApiError(409, "Email already exists");
     }
     // Employee validation
-    if (data.role === "employee") {
-        if (!data.team) {
+    if (!data.role || data.role === "employee") {
+        if (!data.teams) {
             throw new ApiError(400, "Employee must belong to a team.");
         }
-        const team = await Team.findById(data.team);
-        if (!team || !team.isActive) {
+        const teams = await Team.findById(data.teams[0]);
+        if (!teams || !teams.isActive) {
             throw new ApiError(404, "Team not found");
         }
         // Store as array
-        data.teams = [team._id];
-        // Remove temporary field if frontend sends `team`
-        delete data.team;
+        data.teams = [teams._id];
     }
 
     // Manager/Admin validation
@@ -92,8 +90,8 @@ exports.getUserById = async(req)=>{
     const id = req.params.id
     const user = await User.findById(id).select("-password").populate("teams","name department");
     if (!user || !user.isActive) {
-    throw new ApiError(404, "User not found");
-}
+        throw new ApiError(404, "User not found");
+    }
     return user
 }
 

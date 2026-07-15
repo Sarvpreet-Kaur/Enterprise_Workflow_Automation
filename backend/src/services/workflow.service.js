@@ -1,5 +1,5 @@
 const { ROLES } = require("../constants/roles");
-const Workflow = require("../models/workflow.model");
+const Workflow = require("../models/workflowSchema");
 const ApiError = require("../utils/ApiError");
 
 exports.createWorkflow = async (data) => {
@@ -50,7 +50,7 @@ exports.createWorkflow = async (data) => {
     return workflow;
 };
 
-exports.getAllWorkflows = async() => {
+exports.getWorkflows = async() => {
     const workflows = await Workflow.find({isActive: true})
     .sort({ createdAt: -1 });
 
