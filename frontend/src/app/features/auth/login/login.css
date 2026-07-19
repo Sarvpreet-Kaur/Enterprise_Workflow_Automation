@@ -364,6 +364,37 @@ BUTTON
     box-shadow:none;
 }
 
+.password-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-field input {
+    width: 100%;
+    padding-right: 45px;
+}
+
+.eye-btn {
+    position: absolute;
+    right: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    padding: 0;
+}
+
+.eye-btn:hover {
+    color: #2563eb;
+}
+
+.eye-btn mat-icon {
+    font-size: 22px;
+}
 /*
 FOOTER
 */

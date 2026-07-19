@@ -23,6 +23,7 @@ export class Login {
   })
 
   error = signal<string>('')
+  hidePassword = true;
 
   ngOnInit() {
     this.loginForm.valueChanges.subscribe(() => {
