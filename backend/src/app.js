@@ -9,11 +9,12 @@ const cors = require("cors");
 
 const errorMiddleware = require('./middleware/errorMiddleware');
 
-const authRouter = require('./routes/userAuthentication')
-const userRouter = require('./routes/user.routes')
-const teamRouter = require('./routes/teams.routes')
+const authRouter = require('./routes/userAuthentication');
+const userRouter = require('./routes/user.routes');
+const teamRouter = require('./routes/teams.routes');
 const workflowRouter = require('./routes/workflow.routes');
 const requestRouter = require('./routes/request.routes');
+const dashboardRouter = require('./routes/dashboard.routes');
 
 app.use(express.json());
 app.use(cookieParser());
@@ -24,6 +25,7 @@ app.use('/user', userRouter)
 app.use('/teams', teamRouter)
 app.use('/workflow', workflowRouter)
 app.use('/requests', requestRouter)
+app.use('/dashboard', dashboardRouter)
 
 app.use(errorMiddleware)
 

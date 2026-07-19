@@ -82,7 +82,14 @@ const findTeam = async (user, body) => {
 };
 
 const resolveNextApprover = (team, workflow, currentStep) => {
-    const nextStep = workflow.steps.find(step => step.order === currentStep + 1);
+    console.log(workflow.steps);
+    console.log(currentStep);
+    const nextStep = workflow.steps.find(step => {
+        console.log(step.order);
+        return step.order === currentStep + 1;
+    });
+
+    console.log(nextStep);
     if (!nextStep) {
         return null;
     }
@@ -127,7 +134,7 @@ exports.updateRequest = async (req) => {
 
     const body = req.body;
     const request = await Request.findById(req.params.id);
-    if (!request || !request.status === "Cancelled") {
+    if (!request || request.status === "Cancelled") {
         throw new ApiError(404, "Request not found.");
     }
     if (request.createdBy.toString() !== req.user._id) {
@@ -149,7 +156,7 @@ exports.updateRequest = async (req) => {
 
 exports.submitRequest = async (req) => {
     const request = await Request.findById(req.params.id);
-    if (!request || !request.status === "Cancelled") {
+    if (!request || request.status === "Cancelled") {
         throw new ApiError(404, "Request not found.");
     }
     if (request.createdBy.toString() !== req.user._id) {
@@ -195,7 +202,7 @@ exports.getRequestById = async (req) => {
             .populate("createdBy")
             .populate("currentApprover")
             .populate("approvalHistory.approver", "firstName lastName");
-    if (!request || !request.status === "Cancelled") {
+    if (!request || request.status === "Cancelled") {
         throw new ApiError(
             404,
             "Request not found."
@@ -213,10 +220,10 @@ exports.getRequestById = async (req) => {
 
 exports.cancelRequest = async (req) => {
     const request = await Request.findById(req.params.id);
-    if (!request || !request.status === "Cancelled") {
+    if (!request || request.status === "Cancelled") {
         throw new ApiError(404, "Request not found.");
     }
-    if (request.createdBy.toString() !== req.user.id) {
+    if (request.createdBy.toString() !== req.user._id) {
         throw new ApiError(403, "Access denied.");
     }
     if (request.status !== "Pending") {
@@ -231,7 +238,7 @@ exports.cancelRequest = async (req) => {
 exports.getPendingRequests = async (req) => {
 
     return await Request.find({
-        currentApprover: req.user.id,
+        currentApprover: req.user._id,
         status: "Pending"
     })
     .populate("createdBy","firstName lastName")
@@ -248,7 +255,7 @@ exports.approveRequest = async(req)=>{
     if(request.status!=="Pending"){
         throw new ApiError( 400, "Request is not pending.");
     }
-    if(request.currentApprover.toString() !==req.user.id){
+    if(request.currentApprover.toString() !==req.user._id){
         throw new ApiError(403, "You are not the current approver.");
     }
     const workflow = await findWorkflow(request.workflow);
@@ -256,7 +263,7 @@ exports.approveRequest = async(req)=>{
 
     request.approvalHistory.push({
         step: request.currentStep,
-        approver: req.user.id,
+        approver: req.user._id,
         role: req.user.role,
         action: "Approved",
         comments: req.body.comments
@@ -285,13 +292,13 @@ exports.rejectRequest = async(req)=>{
     if(!request){
         throw new ApiError(404, "Request not found.");
     }
-    if( request.currentApprover.toString() !== req.user.id){
+    if( request.currentApprover.toString() !== req.user._id){
         throw new ApiError(403, "Access denied.");
     }
 
     request.approvalHistory.push({
         step: request.currentStep,
-        approver: req.user.id,
+        approver: req.user._id,
         role: req.user.role,
         action: "Rejected",
         comments: req.body.comments

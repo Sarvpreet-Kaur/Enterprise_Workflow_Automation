@@ -54,7 +54,9 @@ const requestSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-
+    currentStep: {
+        type: Number
+    },
     approvalHistory: [{
         step: Number,
         approver: {
