@@ -6,7 +6,7 @@ const createRequest = async(req, res, next)=>{
         res.status(201).json({
             success: true,
             message: "Draft created successfully.",
-            data: draft
+            data: request
         });
     } catch (error) {
         next(error);
@@ -26,6 +26,43 @@ const updateRequest = async (req, res, next) => {
     }
 };
 
+const getRequests = async (req, res, next) => {
+    try {
+        const request = await requestService.getRequests(req);
+        res.status(200).json({
+            success: true,
+            data: request
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const getRequestById = async (req, res, next) => {
+    try {
+        const request = await requestService.getRequestById(req);
+        res.status(200).json({
+            success: true,
+            data: request
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const cancelRequest = async (req, res, next) => {
+    try {
+        const request = await requestService.cancelRequest(req);
+        res.status(200).json({
+            success: true,
+            message: "Request cancelled successfully.",
+            data: request
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 const submitRequest = async (req, res, next) => {
     try {
         const request = await requestService.submitRequest(req);
@@ -38,3 +75,41 @@ const submitRequest = async (req, res, next) => {
         next(error);
     }
 };
+
+const getPendingRequests = async (req, res, next) => {
+    try {
+        const request = await requestService.getPendingRequests(req);
+        res.status(200).json({
+            success: true,
+            data: request
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const approveRequest = async (req, res, next) => {
+    try {
+        const request = await requestService.approveRequest(req);
+        res.status(200).json({
+            success: true,
+            data: request
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const rejectRequest = async (req, res, next) => {
+    try {
+        const request = await requestService.rejectRequest(req);
+        res.status(200).json({
+            success: true,
+            data: request
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+module.exports = {createRequest, updateRequest, getRequestById, getRequests, submitRequest, cancelRequest, getPendingRequests, approveRequest, rejectRequest}

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
-import workflow from './workflowSchema';
+const workflow = require('./workflowSchema');
 
 const requestSchema = new mongoose.Schema(
 {
@@ -54,6 +54,27 @@ const requestSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
+
+    approvalHistory: [{
+        step: Number,
+        approver: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        role: {
+            type: String,
+            enum: ["manager", "admin"]
+        },
+        action: {
+            type: String,
+            enum: ["Approved", "Rejected"]
+        },
+        comments: String,
+        actionAt: {
+            type: Date,
+            default: Date.now
+        }
+    }],
     submittedAt: Date
 }, {timestamps: true});
 

@@ -1,8 +1,11 @@
 const User = require('../models/userSchema')
 const Team = require('../models/teamSchema')
 const Workflow = require('../models/workflowSchema')
+const ApiError = require('../utils/apiError')
+const {ROLES} = require('../constants/roles')
+const Request = require('../models/requestSchema')
 
-findLoggedInUser() = async(id)=>{
+const findLoggedInUser = async(id)=>{
     const user = await User.findById(id);
     if (!user || !user.isActive) {
         throw new ApiError(404, "User not found");
@@ -10,7 +13,7 @@ findLoggedInUser() = async(id)=>{
     return user
 }
 
-findWorkflow() = async(id)=>{
+const findWorkflow = async(id)=>{
     const workflow = await Workflow.findById(id);
     if (!workflow || !workflow.isActive) {
         throw new ApiError(404, "Workflow not found");
@@ -78,10 +81,31 @@ const findTeam = async (user, body) => {
     throw new ApiError(403, "Admins cannot create requests.");
 };
 
+const resolveNextApprover = (team, workflow, currentStep) => {
+    const nextStep = workflow.steps.find(step => step.order === currentStep + 1);
+    if (!nextStep) {
+        return null;
+    }
+    switch(nextStep.approverRole){
+        case ROLES.MANAGER:
+            return {
+                currentStep: nextStep.order,
+                currentApprover: team.manager
+            };
+        case ROLES.ADMIN:
+            return {
+                currentStep: nextStep.order,
+                currentApprover: team.admin
+            };
+        default:
+            throw new ApiError(400, "Invalid workflow configuration.");
+    }
+}
+
 exports.createRequest = async(req, res)=>{
     console.log(req)
     const body = req.body
-    const user = await findLoggedInUser(req.user.id)
+    const user = await findLoggedInUser(req.user._id)
     const workflow = await findWorkflow(body.workflow)
     const team = await findTeam(user, body)
 
@@ -99,14 +123,14 @@ exports.createRequest = async(req, res)=>{
     return request;
 };
 
-exports.updateDraft = async (req) => {
+exports.updateRequest = async (req) => {
 
     const body = req.body;
     const request = await Request.findById(req.params.id);
-    if (!request || !request.isActive) {
+    if (!request || !request.status === "Cancelled") {
         throw new ApiError(404, "Request not found.");
     }
-    if (request.createdBy.toString() !== req.user.id) {
+    if (request.createdBy.toString() !== req.user._id) {
         throw new ApiError(403, "Access denied.");
     }
     if (request.status !== "Draft") {
@@ -125,16 +149,16 @@ exports.updateDraft = async (req) => {
 
 exports.submitRequest = async (req) => {
     const request = await Request.findById(req.params.id);
-    if (!request || !request.isActive) {
+    if (!request || !request.status === "Cancelled") {
         throw new ApiError(404, "Request not found.");
     }
-    if (request.createdBy.toString() !== req.user.id) {
+    if (request.createdBy.toString() !== req.user._id) {
         throw new ApiError(403, "Access denied.");
     }
     if (request.status !== "Draft") {
         throw new ApiError(400, "Request is already submitted.");
     }
-    const user = await findLoggedInUser(req.user.id);
+    const user = await findLoggedInUser(req.user._id);
     const workflow = await findWorkflow(request.workflow);
     const team = await Team.findById(request.team);
     const approval = await resolveApprover( user, team, workflow );
@@ -147,3 +171,134 @@ exports.submitRequest = async (req) => {
     return request;
 };
 
+exports.getRequests = async (req) => {
+    let query = {};
+    if (req.user.role !== ROLES.ADMIN) {
+        query.createdBy = req.user._id;
+    }
+    const requests = await Request.find(query)
+            .populate("workflow", "name")
+            .populate("team", "name")
+            .populate(
+                "currentApprover",
+                "firstName lastName"
+            );
+
+    return requests;
+};
+
+exports.getRequestById = async (req) => {
+    const request =
+        await Request.findById(req.params.id)
+            .populate("workflow")
+            .populate("team")
+            .populate("createdBy")
+            .populate("currentApprover")
+            .populate("approvalHistory.approver", "firstName lastName");
+    if (!request || !request.status === "Cancelled") {
+        throw new ApiError(
+            404,
+            "Request not found."
+        );
+    }
+    const isOwner = request.createdBy._id.toString() === req.user._id;
+    const isApprover = request.currentApprover && request.currentApprover._id.toString() === req.user._id;
+    const isAdmin = req.user.role === ROLES.ADMIN;
+
+    if (!isOwner && !isApprover && !isAdmin) {
+        throw new ApiError( 403, "Access denied.");
+    }
+    return request;
+};
+
+exports.cancelRequest = async (req) => {
+    const request = await Request.findById(req.params.id);
+    if (!request || !request.status === "Cancelled") {
+        throw new ApiError(404, "Request not found.");
+    }
+    if (request.createdBy.toString() !== req.user.id) {
+        throw new ApiError(403, "Access denied.");
+    }
+    if (request.status !== "Pending") {
+        throw new ApiError( 400, "Only pending requests can be cancelled.");
+    }
+    request.status = "Cancelled";
+    request.completedAt = new Date();
+    await request.save();
+    return request;
+};
+
+exports.getPendingRequests = async (req) => {
+
+    return await Request.find({
+        currentApprover: req.user.id,
+        status: "Pending"
+    })
+    .populate("createdBy","firstName lastName")
+    .populate("workflow","name")
+    .populate("team","name department")
+    .populate("approvalHistory.approver", "firstName lastName");
+}
+
+exports.approveRequest = async(req)=>{
+    const request = await Request.findById(req.params.id);
+    if(!request){
+        throw new ApiError(404,"Request not found");
+    }
+    if(request.status!=="Pending"){
+        throw new ApiError( 400, "Request is not pending.");
+    }
+    if(request.currentApprover.toString() !==req.user.id){
+        throw new ApiError(403, "You are not the current approver.");
+    }
+    const workflow = await findWorkflow(request.workflow);
+    const team = await Team.findById(request.team);
+
+    request.approvalHistory.push({
+        step: request.currentStep,
+        approver: req.user.id,
+        role: req.user.role,
+        action: "Approved",
+        comments: req.body.comments
+    });
+    const next =
+        resolveNextApprover(
+            team,
+            workflow,
+            request.currentStep
+        );
+    if(!next){
+        request.status="Approved";
+        request.completedAt=new Date();
+        request.currentApprover=null;
+    }
+    else{
+        request.currentStep=next.currentStep;
+        request.currentApprover= next.currentApprover;
+    }
+    await request.save();
+    return request;
+}
+
+exports.rejectRequest = async(req)=>{
+    const request = await Request.findById(req.params.id);
+    if(!request){
+        throw new ApiError(404, "Request not found.");
+    }
+    if( request.currentApprover.toString() !== req.user.id){
+        throw new ApiError(403, "Access denied.");
+    }
+
+    request.approvalHistory.push({
+        step: request.currentStep,
+        approver: req.user.id,
+        role: req.user.role,
+        action: "Rejected",
+        comments: req.body.comments
+    });
+    request.status="Rejected";
+    request.completedAt=new Date();
+    request.currentApprover=null;
+    await request.save();
+    return request;
+}
