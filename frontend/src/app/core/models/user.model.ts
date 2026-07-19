@@ -5,7 +5,7 @@ export interface User {
     email: string;
     department: string;
     role: string;
-    managerId?: string;
+    team: string;
     isActive: boolean;
 }
 
@@ -32,5 +32,5 @@ export interface CreateUserRequest {
     password: string;
     department: string;
     role: string;
-    managerId?: string;
+    team: string;
 }

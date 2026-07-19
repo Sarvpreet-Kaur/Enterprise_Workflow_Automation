@@ -1,0 +1,8 @@
+<h3>FlowDesk</h3>
+<div *ngIf="currentUser$ | async as user">
+    {{ user.firstName }} {{ user.lastName }}
+    {{ user.role }}
+    <button (click)="logout()">
+        Logout
+    </button>
+</div>

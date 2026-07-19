@@ -39,11 +39,7 @@ export class Login {
 
     this.authService.login(this.loginForm.value).subscribe({
       next: (response)=>{
-        console.log(response);
-        this.authService.saveToken(response.token)
-        this.authService.saveUser(response.user)
         this.router.navigate(['/dashboard'])
-
       },
       error: (error)=>{
         if (error.status === 401) {
