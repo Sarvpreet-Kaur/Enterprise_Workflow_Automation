@@ -1,0 +1,477 @@
+/* ==========================================================
+   Enterprise Workflow Automation
+   Table System
+========================================================== */
+
+
+/* ==========================================================
+   TABLE CONTAINER
+========================================================== */
+
+.table-container {
+
+    background: var(--surface-card);
+
+    border: 1px solid var(--border-light);
+
+    border-radius: var(--table-radius);
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow-sm);
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE TABLE
+========================================================== */
+
+.table-responsive {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+}
+
+
+/* ==========================================================
+   TABLE
+========================================================== */
+
+.table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+.table th {
+
+    height: 56px;
+
+    padding: 0 20px;
+
+    text-align: left;
+
+    font-size: .85rem;
+
+    font-weight: var(--fw-semibold);
+
+    color: var(--text-secondary);
+
+    text-transform: uppercase;
+
+    letter-spacing: .5px;
+
+    background:var(--table-header-bg);;
+
+    border-bottom: 1px solid var(--border-light);
+
+}
+
+.table td {
+
+    height: var(--table-row-height);
+
+    padding: 0 20px;
+
+    border-bottom: 1px solid var(--border-light);
+
+    color: var(--text-primary);
+
+    font-size: .95rem;
+
+}
+
+.table tbody tr {
+
+    transition: var(--transition);
+
+}
+
+.table tbody tr:hover {
+
+    background: rgba(15,76,92,.04);
+
+}
+
+.table tbody tr:last-child td {
+
+    border-bottom: none;
+
+}
+
+
+/* ==========================================================
+   TABLE ACTIONS
+========================================================== */
+
+.table-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--space-2);
+
+}
+
+
+/* ==========================================================
+   BADGES
+========================================================== */
+
+.badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 90px;
+
+    height: 30px;
+
+    padding: 0 14px;
+
+    border-radius: var(--radius-pill);
+
+    font-size: .8rem;
+
+    font-weight: var(--fw-semibold);
+
+}
+
+.badge-success {
+
+    background: var(--success-bg);
+
+    color: var(--success);
+
+}
+
+.badge-pending {
+
+    background: var(--pending-bg);
+
+    color: var(--pending);
+
+}
+
+.badge-running {
+
+    background: var(--running-bg);
+
+    color: var(--running);
+
+}
+
+.badge-warning {
+
+    background: var(--warning-bg);
+
+    color: var(--warning);
+
+}
+
+.badge-danger {
+
+    background: var(--danger-bg);
+
+    color: var(--danger);
+
+}
+
+
+/* ==========================================================
+   MATERIAL TABLE
+========================================================== */
+
+.mat-mdc-table {
+
+    width: 100%;
+
+    background: transparent !important;
+
+}
+
+.mat-mdc-header-row {
+
+    height: 56px;
+
+    background:var(--table-header-bg);;
+
+}
+
+.mat-mdc-header-cell {
+
+    color: var(--text-secondary) !important;
+
+    font-size: .85rem !important;
+
+    font-weight: var(--fw-semibold) !important;
+
+    text-transform: uppercase;
+
+    border-bottom: 1px solid var(--border-light) !important;
+
+}
+
+.mat-mdc-row {
+
+    height: var(--table-row-height);
+
+    transition: var(--transition);
+
+}
+
+.mat-mdc-row:hover {
+
+    background: rgba(15,76,92,.04);
+
+}
+
+.mat-mdc-cell {
+
+    color: var(--text-primary);
+
+    border-bottom: 1px solid var(--border-light);
+
+}
+
+
+/* ==========================================================
+   SORT HEADER
+========================================================== */
+
+.mat-sort-header-content {
+
+    font-weight: var(--fw-semibold);
+
+}
+
+.mat-sort-header-arrow {
+
+    color: var(--color-secondary);
+
+}
+
+
+/* ==========================================================
+   PAGINATOR
+========================================================== */
+
+.mat-mdc-paginator {
+
+    background: transparent;
+
+    border-top: 1px solid var(--border-light);
+
+}
+
+.mat-mdc-paginator-container {
+
+    min-height: 60px;
+
+}
+
+.mat-mdc-paginator-range-label {
+
+    color: var(--text-secondary);
+
+}
+
+
+/* ==========================================================
+   MATERIAL MENU
+========================================================== */
+
+.mat-mdc-menu-panel {
+
+    border-radius: var(--radius-md);
+
+    box-shadow: var(--shadow-lg);
+
+}
+
+.mat-mdc-menu-item:hover {
+
+    background: rgba(15,76,92,.05);
+
+}
+
+
+/* ==========================================================
+   STATUS CHIPS
+========================================================== */
+
+.status-chip {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 90px;
+
+    height: 32px;
+
+    padding: 0 14px;
+
+    border-radius: var(--radius-pill);
+
+    font-size: .8rem;
+
+    font-weight: var(--fw-semibold);
+
+}
+
+.status-approved {
+
+    background: var(--success-bg);
+
+    color: var(--success);
+
+}
+
+.status-pending {
+
+    background: var(--pending-bg);
+
+    color: var(--pending);
+
+}
+
+.status-running {
+
+    background: var(--running-bg);
+
+    color: var(--running);
+
+}
+
+.status-rejected {
+
+    background: var(--danger-bg);
+
+    color: var(--danger);
+
+}
+
+.status-warning {
+
+    background: var(--warning-bg);
+
+    color: var(--warning);
+
+}
+
+
+/* ==========================================================
+   AVATAR CELL
+========================================================== */
+
+.avatar-cell {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--space-3);
+
+}
+
+.avatar-circle {
+
+    width: 38px;
+
+    height: 38px;
+
+    border-radius: 50%;
+
+    background: var(--color-secondary);
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: 600;
+
+}
+
+
+/* ==========================================================
+   EMPTY TABLE
+========================================================== */
+
+.table-empty {
+
+    padding: 80px;
+
+    text-align: center;
+
+    color: var(--text-secondary);
+
+}
+
+.table-empty mat-icon {
+
+    font-size: 56px;
+
+    width: 56px;
+
+    height: 56px;
+
+    color: var(--text-muted);
+
+    margin-bottom: var(--space-4);
+
+}
+
+
+/* ==========================================================
+   LOADING
+========================================================== */
+
+.table-loading {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 80px;
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:768px){
+
+    .table th,
+    .table td{
+
+        padding:0 12px;
+
+    }
+
+    .table-actions{
+
+        flex-wrap:wrap;
+
+    }
+
+}

@@ -1,0 +1,556 @@
+/* ==========================================================
+   Enterprise Workflow Automation
+   Typography System
+========================================================== */
+
+/* ==========================================================
+   GOOGLE FONTS
+========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+
+/* ==========================================================
+   ROOT TYPOGRAPHY
+========================================================== */
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+
+    font-family: var(--font-primary);
+
+    font-size: 1rem;
+
+    font-weight: var(--fw-normal);
+
+    color: var(--text-primary);
+
+    line-height: 1.6;
+
+    -webkit-font-smoothing: antialiased;
+
+    -moz-osx-font-smoothing: grayscale;
+
+    text-rendering: optimizeLegibility;
+
+}
+
+
+/* ==========================================================
+   GLOBAL HEADINGS
+========================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+    margin: 0;
+
+    color: var(--text-primary);
+
+    font-family: var(--font-heading);
+
+    font-weight: var(--fw-bold);
+
+    line-height: 1.25;
+
+}
+
+p {
+
+    margin: 0;
+
+    color: var(--text-secondary);
+
+    line-height: 1.7;
+
+}
+
+small {
+
+    color: var(--text-muted);
+
+}
+
+
+/* ==========================================================
+   DISPLAY
+========================================================== */
+
+.display-xl {
+
+    font-family: var(--font-heading);
+
+    font-size: 4rem;
+
+    font-weight: 800;
+
+    line-height: 1.1;
+
+}
+
+.display-lg {
+
+    font-family: var(--font-heading);
+
+    font-size: 3.25rem;
+
+    font-weight: 800;
+
+    line-height: 1.15;
+
+}
+
+.display-md {
+
+    font-family: var(--font-heading);
+
+    font-size: 2.75rem;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+}
+
+
+/* ==========================================================
+   PAGE HEADINGS
+========================================================== */
+
+.page-title {
+
+    font-family: var(--font-heading);
+
+    font-size: 2rem;
+
+    font-weight: 700;
+
+    color: var(--text-primary);
+
+    margin-bottom: 8px;
+
+}
+
+.page-subtitle {
+
+    font-size: 1rem;
+
+    color: var(--text-secondary);
+
+    margin-bottom: 32px;
+
+}
+
+
+/* ==========================================================
+   SECTION HEADINGS
+========================================================== */
+
+.section-title {
+
+    font-family: var(--font-heading);
+
+    font-size: 1.5rem;
+
+    font-weight: 700;
+
+    color: var(--text-primary);
+
+}
+
+.section-subtitle {
+
+    font-size: .95rem;
+
+    color: var(--text-secondary);
+
+}
+
+
+/* ==========================================================
+   CARD HEADINGS
+========================================================== */
+
+.card-title {
+
+    font-size: 1.125rem;
+
+    font-weight: 600;
+
+    color: var(--text-primary);
+
+}
+
+.card-subtitle {
+
+    font-size: .95rem;
+
+    color: var(--text-secondary);
+
+}
+
+
+/* ==========================================================
+   TABLE TYPOGRAPHY
+========================================================== */
+
+.table-title {
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+}
+
+.table-header {
+
+    font-size: .875rem;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: .4px;
+
+    color: var(--text-secondary);
+
+}
+
+.table-cell {
+
+    font-size: .95rem;
+
+}
+
+
+/* ==========================================================
+   BODY TEXT
+========================================================== */
+
+.body-xl {
+
+    font-size: 1.125rem;
+
+}
+
+.body-lg {
+
+    font-size: 1rem;
+
+}
+
+.body-md {
+
+    font-size: .95rem;
+
+}
+
+.body-sm {
+
+    font-size: .875rem;
+
+}
+
+.body-xs {
+
+    font-size: .75rem;
+
+}
+
+
+/* ==========================================================
+   LABELS
+========================================================== */
+
+.label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: .9rem;
+
+    font-weight: 600;
+
+    color: var(--text-primary);
+
+}
+
+.label-required::after {
+
+    content: " *";
+
+    color: var(--danger);
+
+}
+
+
+/* ==========================================================
+   LINKS
+========================================================== */
+
+a {
+
+    color: var(--color-secondary);
+
+    text-decoration: none;
+
+    transition: var(--transition);
+
+}
+
+a:hover {
+
+    color: var(--color-secondary-hover);
+
+}
+
+
+/* ==========================================================
+   MONO TEXT
+========================================================== */
+
+.mono {
+
+    font-family: var(--font-mono);
+
+}
+
+.workflow-id {
+
+    display: inline-block;
+
+    padding: 4px 10px;
+
+    background: var(--pending-bg);
+
+    color: var(--pending);
+
+    border-radius: 999px;
+
+    font-family: var(--font-mono);
+
+    font-size: .8rem;
+
+}
+
+
+/* ==========================================================
+   STATUS TEXT
+========================================================== */
+
+.text-success {
+
+    color: var(--success);
+
+}
+
+.text-warning {
+
+    color: var(--warning);
+
+}
+
+.text-danger {
+
+    color: var(--danger);
+
+}
+
+.text-info {
+
+    color: var(--info);
+
+}
+
+.text-primary {
+
+    color: var(--text-primary);
+
+}
+
+.text-secondary {
+
+    color: var(--text-secondary);
+
+}
+
+.text-muted {
+
+    color: var(--text-muted);
+
+}
+
+.text-light {
+
+    color: var(--text-light);
+
+}
+
+
+/* ==========================================================
+   FONT WEIGHT
+========================================================== */
+
+.fw-light {
+
+    font-weight: 300;
+
+}
+
+.fw-normal {
+
+    font-weight: 400;
+
+}
+
+.fw-medium {
+
+    font-weight: 500;
+
+}
+
+.fw-semibold {
+
+    font-weight: 600;
+
+}
+
+.fw-bold {
+
+    font-weight: 700;
+
+}
+
+.fw-black {
+
+    font-weight: 800;
+
+}
+
+
+/* ==========================================================
+   TEXT ALIGNMENT
+========================================================== */
+
+.text-left {
+
+    text-align: left;
+
+}
+
+.text-center {
+
+    text-align: center;
+
+}
+
+.text-right {
+
+    text-align: right;
+
+}
+
+
+/* ==========================================================
+   TEXT TRANSFORM
+========================================================== */
+
+.uppercase {
+
+    text-transform: uppercase;
+
+}
+
+.lowercase {
+
+    text-transform: lowercase;
+
+}
+
+.capitalize {
+
+    text-transform: capitalize;
+
+}
+
+
+/* ==========================================================
+   TRUNCATION
+========================================================== */
+
+.truncate {
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+
+/* ==========================================================
+   LOGIN PAGE
+========================================================== */
+
+.login-title {
+
+    font-family: var(--font-heading);
+
+    font-size: 3rem;
+
+    font-weight: 800;
+
+    color: white;
+
+}
+
+.login-description {
+
+    font-size: 1.15rem;
+
+    color: rgba(255, 255, 255, .78);
+
+}
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.app-title {
+
+    font-family: var(--font-heading);
+
+    font-size: 1.35rem;
+
+    font-weight: 700;
+
+    color: white;
+
+}
+
+.user-name {
+
+    font-weight: 600;
+
+    font-size: .95rem;
+
+}
+
+.user-role {
+
+    font-size: .8rem;
+
+    color: var(--text-muted);
+
+}

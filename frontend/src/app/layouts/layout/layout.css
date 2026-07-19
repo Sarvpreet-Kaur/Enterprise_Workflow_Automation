@@ -1,0 +1,93 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    background: var(--surface-page);
+
+}
+
+/* ==========================================================
+   MAIN LAYOUT
+========================================================== */
+
+.layout-container {
+
+    display: flex;
+
+    margin-top: var(--header-height);
+
+    min-height: calc(100vh - var(--header-height));
+
+    background: var(--surface-page);
+
+}
+
+/* ==========================================================
+   CONTENT
+========================================================== */
+
+.content-container {
+
+    flex: 1;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    background: var(--surface-page);
+
+}
+
+/* ==========================================================
+   PAGE WRAPPER
+========================================================== */
+
+.page-wrapper {
+
+    padding: var(--content-padding);
+
+    max-width: var(--container-width);
+
+    margin: 0 auto;
+
+    width: 100%;
+
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 992px) {
+
+    .page-wrapper {
+
+        padding: 24px;
+
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .page-wrapper {
+
+        padding: 20px;
+
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .page-wrapper {
+
+        padding: 16px;
+
+    }
+
+}

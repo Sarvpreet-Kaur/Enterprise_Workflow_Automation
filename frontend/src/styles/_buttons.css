@@ -1,0 +1,476 @@
+/* ==========================================================
+   Enterprise Workflow Automation
+   Button System
+========================================================== */
+
+
+/* ==========================================================
+   BASE BUTTON
+========================================================== */
+
+.btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--space-2);
+
+    min-width: 120px;
+
+    height: var(--button-height);
+
+    padding: 0 var(--space-6);
+
+    border: 1px solid transparent;
+
+    border-radius: var(--button-radius);
+
+    font-family: var(--font-primary);
+
+    font-size: .95rem;
+
+    font-weight: var(--fw-semibold);
+
+    cursor: pointer;
+
+    user-select: none;
+
+    transition: var(--transition);
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+    outline: none;
+
+}
+
+.btn:disabled {
+
+    opacity: .55;
+
+    cursor: not-allowed;
+
+    pointer-events: none;
+
+}
+
+
+/* ==========================================================
+   PRIMARY BUTTON
+========================================================== */
+
+.btn-primary {
+
+    background: var(--color-secondary);
+
+    color: white;
+
+    box-shadow: var(--shadow-sm);
+
+}
+
+.btn-primary:hover {
+
+    background: var(--color-secondary-hover);
+
+    box-shadow: var(--shadow-md);
+
+    transform: translateY(-1px);
+
+}
+
+.btn-primary:active {
+
+    transform: translateY(0);
+
+}
+
+
+/* ==========================================================
+   SECONDARY BUTTON
+========================================================== */
+
+.btn-secondary {
+
+    background: white;
+
+    color: var(--color-primary);
+
+    border: 1px solid var(--border-default);
+
+}
+
+.btn-secondary:hover {
+
+    background: var(--surface-hover);
+
+    border-color: var(--color-secondary);
+
+}
+
+
+/* ==========================================================
+   OUTLINE BUTTON
+========================================================== */
+
+.btn-outline {
+
+    background: transparent;
+
+    border: 1px solid var(--color-secondary);
+
+    color: var(--color-secondary);
+
+}
+
+.btn-outline:hover {
+
+    background: rgba(15,76,92,.08);
+
+}
+
+
+/* ==========================================================
+   SUCCESS BUTTON
+========================================================== */
+
+.btn-success {
+
+    background: var(--success);
+
+    color: white;
+
+}
+
+.btn-success:hover {
+
+    filter: brightness(.95);
+
+}
+
+
+/* ==========================================================
+   DANGER BUTTON
+========================================================== */
+
+.btn-danger {
+
+    background: var(--danger);
+
+    color: white;
+
+}
+
+.btn-danger:hover {
+
+    filter: brightness(.95);
+
+}
+
+
+/* ==========================================================
+   WARNING BUTTON
+========================================================== */
+
+.btn-warning {
+
+    background: var(--warning);
+
+    color: white;
+
+}
+
+.btn-warning:hover {
+
+    filter: brightness(.95);
+
+}
+
+
+/* ==========================================================
+   ICON BUTTON
+========================================================== */
+
+.btn-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    min-width: 42px;
+
+    padding: 0;
+
+    border-radius: 50%;
+
+}
+
+.btn-icon mat-icon {
+
+    font-size: 20px;
+
+}
+
+
+/* ==========================================================
+   TEXT BUTTON
+========================================================== */
+
+.btn-text {
+
+    background: transparent;
+
+    color: var(--color-secondary);
+
+    padding: 0;
+
+    min-width: auto;
+
+    height: auto;
+
+}
+
+.btn-text:hover {
+
+    color: var(--color-secondary-hover);
+
+}
+
+
+/* ==========================================================
+   BUTTON SIZES
+========================================================== */
+
+.btn-sm {
+
+    height: 36px;
+
+    padding: 0 16px;
+
+    font-size: .85rem;
+
+}
+
+.btn-lg {
+
+    height: 54px;
+
+    padding: 0 30px;
+
+    font-size: 1rem;
+
+}
+
+
+/* ==========================================================
+   FULL WIDTH
+========================================================== */
+
+.btn-block {
+
+    width: 100%;
+
+}
+
+
+/* ==========================================================
+   BUTTON GROUP
+========================================================== */
+
+.btn-group {
+
+    display: flex;
+
+    gap: var(--space-3);
+
+    flex-wrap: wrap;
+
+}
+
+
+/* ==========================================================
+   FLOATING ACTION BUTTON
+========================================================== */
+
+.btn-fab {
+
+    width: 56px;
+
+    height: 56px;
+
+    border-radius: 50%;
+
+    background: var(--color-secondary);
+
+    color: white;
+
+    box-shadow: var(--shadow-md);
+
+}
+
+.btn-fab:hover {
+
+    background: var(--color-secondary-hover);
+
+}
+
+
+/* ==========================================================
+   ANGULAR MATERIAL BUTTONS
+========================================================== */
+
+.mat-mdc-raised-button,
+.mat-mdc-unelevated-button {
+
+    border-radius: var(--button-radius) !important;
+
+    height: var(--button-height) !important;
+
+    font-weight: var(--fw-semibold) !important;
+
+    font-family: var(--font-primary) !important;
+
+    box-shadow: var(--shadow-sm) !important;
+
+    transition: var(--transition) !important;
+
+}
+
+.mat-mdc-raised-button:hover,
+.mat-mdc-unelevated-button:hover {
+
+    box-shadow: var(--shadow-md) !important;
+
+}
+
+.mat-mdc-outlined-button {
+
+    border-radius: var(--button-radius) !important;
+
+    border-color: var(--border-default) !important;
+
+    font-family: var(--font-primary) !important;
+
+}
+
+.mat-mdc-outlined-button:hover {
+
+    background: rgba(15,76,92,.05);
+
+}
+
+.mat-mdc-button {
+
+    font-family: var(--font-primary) !important;
+
+    border-radius: var(--button-radius);
+
+}
+
+
+/* ==========================================================
+   MATERIAL ICON BUTTON
+========================================================== */
+
+.mat-mdc-icon-button {
+
+    border-radius: 50% !important;
+
+    transition: var(--transition);
+
+}
+
+.mat-mdc-icon-button:hover {
+
+    background: rgba(15,76,92,.08);
+
+}
+
+
+/* ==========================================================
+   BUTTON LOADING STATE
+========================================================== */
+
+.btn-loading {
+
+    pointer-events: none;
+
+    opacity: .75;
+
+}
+
+.btn-spinner {
+
+    width: 18px;
+
+    height: 18px;
+
+    border: 2px solid rgba(255,255,255,.35);
+
+    border-top-color: white;
+
+    border-radius: 50%;
+
+    animation: btnSpin .8s linear infinite;
+
+}
+
+.btn-primary {
+    background: var(--color-secondary);
+    color: white;
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--color-primary);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+}
+@keyframes btnSpin {
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+
+/* ==========================================================
+   RIPPLE
+========================================================== */
+
+.mat-ripple-element{
+
+    opacity:.15 !important;
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:768px){
+
+    .btn{
+
+        width:100%;
+
+    }
+
+    .btn-group{
+
+        flex-direction:column;
+
+    }
+
+}

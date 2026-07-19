@@ -1,0 +1,426 @@
+/* ==========================================================
+   Enterprise Workflow Automation
+   Card System
+========================================================== */
+
+
+/* ==========================================================
+   BASE CARD
+========================================================== */
+
+.card {
+
+    background: var(--surface-card);
+
+    border: 1px solid var(--border-light);
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-sm);
+
+    padding: var(--space-6);
+
+    transition: var(--transition);
+
+}
+
+.card:hover {
+
+    box-shadow: var(--shadow-md);
+
+}
+
+
+/* ==========================================================
+   CARD SIZES
+========================================================== */
+
+.card-sm {
+
+    padding: var(--space-4);
+
+}
+
+.card-md {
+
+    padding: var(--space-6);
+
+}
+
+.card-lg {
+
+    padding: var(--space-8);
+
+}
+
+
+/* ==========================================================
+   CARD HEADER
+========================================================== */
+
+.card-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: var(--space-4);
+
+    margin-bottom: var(--space-5);
+
+}
+
+
+/* ==========================================================
+   CARD TITLE
+========================================================== */
+
+.card-title {
+
+    margin: 0;
+
+}
+
+.card-subtitle {
+
+    margin-top: 4px;
+
+}
+
+
+/* ==========================================================
+   CARD CONTENT
+========================================================== */
+
+.card-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--space-5);
+
+}
+
+
+/* ==========================================================
+   CARD FOOTER
+========================================================== */
+
+.card-footer {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: var(--space-3);
+
+    margin-top: var(--space-6);
+
+}
+
+
+/* ==========================================================
+   CLICKABLE CARD
+========================================================== */
+
+.card-clickable {
+
+    cursor: pointer;
+
+}
+
+.card-clickable:hover {
+
+    transform: translateY(-2px);
+
+}
+
+
+/* ==========================================================
+   DASHBOARD STAT CARD
+========================================================== */
+
+.stat-card {
+
+    background: var(--surface-card);
+
+    border: 1px solid var(--border-light);
+
+    border-radius: var(--radius-lg);
+
+    padding: var(--space-6);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    box-shadow: var(--shadow-sm);
+
+    transition: var(--transition);
+
+}
+
+.stat-card:hover {
+
+    box-shadow: var(--shadow-md);
+
+    transform: translateY(-2px);
+
+}
+
+
+/* ==========================================================
+   STAT CONTENT
+========================================================== */
+
+.stat-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--space-2);
+
+}
+
+.stat-title {
+
+    color: var(--text-secondary);
+
+    font-size: .9rem;
+
+    font-weight: 500;
+
+}
+
+.stat-value {
+
+    font-family: var(--font-heading);
+
+    font-size: 2rem;
+
+    font-weight: 700;
+
+    color: var(--text-primary);
+
+}
+
+
+/* ==========================================================
+   STAT ICON
+========================================================== */
+
+.stat-icon {
+
+    width: 60px;
+
+    height: 60px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: var(--surface-accent);
+
+}
+
+.stat-icon mat-icon {
+
+    font-size: 28px;
+
+    color: var(--color-secondary);
+
+}
+
+
+/* ==========================================================
+   INFO CARD
+========================================================== */
+
+.info-card {
+
+    border-left: 5px solid var(--color-secondary);
+
+}
+
+
+/* ==========================================================
+   SUCCESS CARD
+========================================================== */
+
+.success-card {
+
+    border-left: 5px solid var(--success);
+
+}
+
+
+/* ==========================================================
+   WARNING CARD
+========================================================== */
+
+.warning-card {
+
+    border-left: 5px solid var(--warning);
+
+}
+
+
+/* ==========================================================
+   DANGER CARD
+========================================================== */
+
+.danger-card {
+
+    border-left: 5px solid var(--danger);
+
+}
+
+
+/* ==========================================================
+   EMPTY STATE
+========================================================== */
+
+.empty-card {
+
+    text-align: center;
+
+    padding: var(--space-9);
+
+}
+
+.empty-card mat-icon {
+
+    font-size: 64px;
+
+    width: 64px;
+
+    height: 64px;
+
+    color: var(--text-muted);
+
+    margin-bottom: var(--space-4);
+
+}
+
+.empty-title {
+
+    font-size: 1.25rem;
+
+    font-weight: 600;
+
+    margin-bottom: var(--space-2);
+
+}
+
+.empty-description {
+
+    color: var(--text-secondary);
+
+}
+
+
+/* ==========================================================
+   MAT CARD OVERRIDE
+========================================================== */
+
+.mat-mdc-card {
+
+    border-radius: var(--radius-lg) !important;
+
+    border: 1px solid var(--border-light);
+
+    background: var(--surface-card);
+
+    box-shadow: var(--shadow-sm) !important;
+
+    transition: var(--transition);
+
+}
+
+.mat-mdc-card:hover {
+
+    box-shadow: var(--shadow-md) !important;
+
+}
+
+.mat-mdc-card-header {
+
+    padding-bottom: var(--space-4);
+
+}
+
+.mat-mdc-card-content {
+
+    padding-top: 0 !important;
+
+}
+
+.mat-mdc-card-actions {
+
+    padding-top: var(--space-5);
+
+}
+
+
+/* ==========================================================
+   DIALOG CARD
+========================================================== */
+
+.enterprise-dialog .mat-mdc-dialog-container {
+
+    border-radius: var(--radius-xl);
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow-lg);
+
+    background: var(--surface-card);
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:768px){
+
+    .stat-card{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:var(--space-5);
+
+    }
+
+    .card-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .card-footer{
+
+        width:100%;
+
+        justify-content:flex-start;
+
+    }
+
+}

@@ -1,0 +1,229 @@
+/* ==========================================================
+   Enterprise Workflow Automation
+   Design Tokens
+   Version 1.0
+========================================================== */
+
+:root {
+
+   /* ======================================================
+       BRAND COLORS
+    ====================================================== */
+
+   --color-primary: #0B2C35;
+   --color-primary-light: #144652;
+   --color-primary-dark: #081E24;
+
+   --color-secondary: #0F4C5C;
+   --color-secondary-hover: #136275;
+   --color-secondary-light: #2B7081;
+
+   /* ======================================================
+       SURFACE COLORS
+    ====================================================== */
+
+   --surface-page: #EEF2F3;
+   --surface-main: #F2EFEA;
+   --surface-card: #FFFFFF;
+   --surface-sidebar: #0B2C35;
+   --surface-header: #FFFFFF;
+   --surface-hover: #F7F8F9;
+
+   /* ======================================================
+       TEXT COLORS
+    ====================================================== */
+
+   --text-primary: #15323A;
+   --text-secondary: #61757C;
+   --text-muted: #8D9BA0;
+   --text-light: #FFFFFF;
+   --text-disabled: #B4BFC3;
+
+   /* ======================================================
+       BORDER COLORS
+    ====================================================== */
+
+   --border-light: #E7ECEE;
+   --border-default: #D7E1E4;
+   --border-dark: #9FB7B6;
+
+   /* ======================================================
+       STATUS COLORS
+    ====================================================== */
+
+   --success-bg: #DCE7E1;
+   --success: #4F7466;
+
+   --pending-bg: #E1EBF5;
+   --pending: #3D648A;
+
+   --running-bg: #B5D6D6;
+   --running: #35696A;
+
+   --warning-bg: #FFF3D6;
+   --warning: #C28700;
+
+   --danger-bg: #F8DEDE;
+   --danger: #C64545;
+
+   --info-bg: #EAF5FF;
+   --info: #2974C4;
+
+   /* ======================================================
+       SHADOWS
+    ====================================================== */
+
+   --shadow-xs:
+      0 1px 2px rgba(0, 0, 0, .04);
+
+   --shadow-sm:
+      0 4px 12px rgba(0, 0, 0, .06);
+
+   --shadow-md:
+      0 8px 24px rgba(0, 0, 0, .08);
+
+   --shadow-lg:
+      0 18px 40px rgba(0, 0, 0, .12);
+
+   --shadow-xl:
+      0 24px 60px rgba(0, 0, 0, .16);
+
+   /* ======================================================
+       BORDER RADIUS
+    ====================================================== */
+
+   --radius-xs: 4px;
+   --radius-sm: 8px;
+   --radius-md: 12px;
+   --radius-lg: 18px;
+   --radius-xl: 24px;
+   --radius-pill: 999px;
+
+   /* ======================================================
+       SPACING
+    ====================================================== */
+
+   --space-0: 0;
+
+   --space-1: 4px;
+   --space-2: 8px;
+   --space-3: 12px;
+   --space-4: 16px;
+   --space-5: 20px;
+   --space-6: 24px;
+   --space-7: 32px;
+   --space-8: 40px;
+   --space-9: 48px;
+   --space-10: 64px;
+
+   /* ======================================================
+       LAYOUT
+    ====================================================== */
+
+   --header-height: 72px;
+   --sidebar-width: 270px;
+   --sidebar-collapsed-width: 82px;
+
+   --content-padding: 32px;
+
+   --container-width: 1440px;
+
+   /* ======================================================
+       INPUTS
+    ====================================================== */
+
+   --input-height: 52px;
+   --input-radius: 12px;
+
+   /* ======================================================
+       BUTTONS
+    ====================================================== */
+
+   --button-height: 46px;
+   --button-radius: 12px;
+
+   /* ======================================================
+       TABLES
+    ====================================================== */
+
+   --table-row-height: 58px;
+   --table-radius: 16px;
+   --table-header-bg:#FAFBFC;
+
+   /* ======================================================
+       SIDEBAR
+    ====================================================== */
+
+   --sidebar-item-height: 48px;
+   --sidebar-icon-size: 22px;
+
+   /* ======================================================
+       ICONS
+    ====================================================== */
+
+   --icon-xs: 14px;
+   --icon-sm: 18px;
+   --icon-md: 22px;
+   --icon-lg: 28px;
+
+   /* ======================================================
+       FONT
+    ====================================================== */
+
+   --font-primary: "Inter", sans-serif;
+
+   --font-heading: "Plus Jakarta Sans", sans-serif;
+
+   --font-mono: "JetBrains Mono", monospace;
+
+   /* ======================================================
+       FONT WEIGHT
+    ====================================================== */
+
+   --fw-light: 300;
+   --fw-normal: 400;
+   --fw-medium: 500;
+   --fw-semibold: 600;
+   --fw-bold: 700;
+   --fw-black: 800;
+
+   /* ======================================================
+       Z INDEX
+    ====================================================== */
+
+   --z-dropdown: 100;
+   --z-sidebar: 300;
+   --z-header: 400;
+   --z-dialog: 900;
+   --z-snackbar: 1000;
+
+   /* ======================================================
+       TRANSITIONS
+    ====================================================== */
+
+   --transition-fast: 150ms ease;
+
+   --transition:
+      250ms ease;
+
+   --transition-slow:
+      350ms ease;
+
+   --surface-accent: rgba(15, 76, 92, 0.08);
+
+   /* Form States */
+
+   --input-bg: #FFFFFF;
+
+   --input-hover: #FAFBFB;
+
+   --input-focus: rgba(15, 76, 92, .08);
+
+   --input-disabled: #F6F7F8;
+
+   --input-border: var(--border-default);
+
+   --input-border-hover: var(--color-secondary);
+
+   --input-border-focus: var(--color-secondary);
+}
