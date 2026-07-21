@@ -67,4 +67,13 @@ export class AuthService {
 
     this.router.navigate(['/login']);
   }
+
+  getFullName(): string {
+    const user = this.getCurrentUser();
+    return user ? `${user.firstName} ${user.lastName}` : '';
+  }
+  
+  getUserRole(): string {
+    return this.getCurrentUser()?.role ?? '';
+  }
 }

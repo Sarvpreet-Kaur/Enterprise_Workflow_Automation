@@ -226,4 +226,6 @@
    --input-border-hover: var(--color-secondary);
 
    --input-border-focus: var(--color-secondary);
+
+   --hover-bg: rgba(15, 76, 92, .08);
 }

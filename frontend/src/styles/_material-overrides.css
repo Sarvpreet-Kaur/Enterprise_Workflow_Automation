@@ -1,0 +1,83 @@
+/* ==========================================================
+   MATERIAL MENU
+========================================================== */
+
+.mat-mdc-menu-panel {
+
+    background: var(--surface-card) !important;
+
+    border: 1px solid var(--border-light);
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-lg);
+
+    overflow: hidden;
+
+    min-width: 220px;
+
+}
+
+
+/* ==========================================================
+   MENU ITEM
+========================================================== */
+
+.mat-mdc-menu-item {
+
+    min-height: 48px;
+
+    font-family: var(--font-primary);
+
+    color: var(--text-primary);
+
+    transition: var(--transition);
+
+}
+
+
+/* ==========================================================
+   HOVER
+========================================================== */
+
+.mat-mdc-menu-item:hover {
+
+    background: rgba(15, 76, 92, .08) !important;
+
+}
+
+
+/* ==========================================================
+   FOCUS
+========================================================== */
+
+.mat-mdc-menu-item.cdk-focused,
+.mat-mdc-menu-item.cdk-program-focused {
+
+    background: rgba(15, 76, 92, .08) !important;
+
+}
+
+
+/* ==========================================================
+   ICON
+========================================================== */
+
+.mat-mdc-menu-item mat-icon {
+
+    color: var(--text-secondary);
+
+    margin-right: 12px;
+
+}
+
+
+/* ==========================================================
+   HOVER ICON
+========================================================== */
+
+.mat-mdc-menu-item:hover mat-icon {
+
+    color: var(--color-secondary);
+
+}

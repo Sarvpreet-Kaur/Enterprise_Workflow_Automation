@@ -1,0 +1,185 @@
+/* HEADER*/
+.app-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--header-height);
+        background: var(--surface-card);
+        border-bottom: 1px solid var(--border-light);
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 28px;
+        z-index: 1000;
+}
+
+/* LEFT*/
+.header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+}
+
+/* RIGHT*/
+.header-right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+}
+
+/* LOGO*/
+.logo-container {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+}
+
+.logo-circle {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: var(--color-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow-sm);
+}
+
+.logo-circle mat-icon {
+        color: white;
+        font-size: 22px;
+        width: 22px;
+        height: 22px;
+}
+
+.logo-content {
+        display: flex;
+        flex-direction: column;
+}
+
+.app-title {
+        font-family: var(--font-heading);
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        line-height: 1.2;
+}
+
+.app-subtitle {
+        font-size: .75rem;
+        color: var(--text-secondary);
+        line-height: 1.2;
+}
+
+/* ICON BUTTON*/
+.header-icon-btn {
+        color: var(--text-primary);
+        transition: var(--transition);
+}
+
+.header-icon-btn:hover {
+        background:  var(--hover-bg);;
+}
+
+/* PROFILE*/
+.profile-btn {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 6px 10px;
+        border-radius: var(--radius-md);
+        transition: var(--transition);
+}
+
+.profile-btn:hover {
+        background: rgba(15, 76, 92, .05);
+}
+
+/* AVATAR*/
+.avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--color-secondary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: .9rem;
+}
+
+/* PROFILE DETAILS*/
+.profile-details {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+}
+
+.user-name {
+        font-size: .9rem;
+        font-weight: 600;
+        color: var(--text-primary);
+}
+
+.user-role {
+        font-size: .75rem;
+        color: var(--text-secondary);
+}
+
+.profile-btn {
+
+        display: flex !important;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 12px;
+
+        padding: 6px 12px !important;
+
+        border-radius: var(--radius-md);
+
+        transition: var(--transition);
+
+        min-height: 48px;
+
+}
+
+.profile-btn:hover {
+
+        background: rgba(15, 76, 92, .05);
+
+}
+
+:host ::ng-deep .profile-btn .mdc-button__label {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+}
+
+/* RESPONSIVE*/
+@media (max-width: 992px) {
+        .profile-details {
+                display: none;
+        }
+}
+
+@media (max-width: 768px) {
+        .app-subtitle {
+                display: none;
+        }
+}
+
+@media (max-width: 576px) {
+        .app-title {
+                display: none;
+        }
+}

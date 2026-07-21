@@ -1,8 +1,58 @@
-<h3>FlowDesk</h3>
-<div *ngIf="currentUser$ | async as user">
-    {{ user.firstName }} {{ user.lastName }}
-    {{ user.role }}
-    <button (click)="logout()">
-        Logout
+<header class="app-header">
+        <!-- Left Section -->
+        <div class="header-left">
+            <!-- Sidebar Toggle -->
+            <button mat-icon-button class="header-icon-btn">
+                <mat-icon>menu</mat-icon>
+        </button>
+            <!-- Logo -->
+            <div class="logo-container">
+                <div class="logo-circle">
+                    <mat-icon>account_tree</mat-icon>
+            </div>
+                <div class="logo-content">
+                    <span class="app-title">
+                        Enterprise Workflow
+                    </span>
+                    <span class="app-subtitle">
+                        Automation Platform
+                    </span>
+            </div>
+        </div>
+    </div>
+        <!-- Right Section -->
+        <div class="header-right">
+            <!-- Notification -->
+            <button mat-icon-button class="header-icon-btn">
+                <mat-icon>notifications_none</mat-icon>
+        </button>
+        <!-- Profile -->
+        <button mat-button class="profile-btn" [matMenuTriggerFor]="profileMenu">
+            <div class="avatar">
+                {{ user?.firstName?.charAt(0) }}{{ user?.lastName?.charAt(0) }}
+            </div>
+            <div class="profile-details">
+                <span class="user-name">
+                    {{ user?.firstName }} {{ user?.lastName }}
+                </span>
+                <span class="user-role">
+                    {{ user?.role }}
+                </span>
+            </div>
+            <mat-icon>
+                keyboard_arrow_down
+            </mat-icon>
+        </button>
+    </div>
+</header>
+<!-- Profile Menu -->
+<mat-menu #profileMenu="matMenu">
+        <button mat-menu-item>
+            <mat-icon>person_outline</mat-icon>
+            <span>Profile</span>
     </button>
-</div>
+        <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+    </button>
+</mat-menu>
