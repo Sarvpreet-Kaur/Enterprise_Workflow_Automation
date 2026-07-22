@@ -54,6 +54,10 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  getCurrentUserRole(): string {
+    return this.currentUserSubject.value?.role ?? '';
+  }
+
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
@@ -72,7 +76,7 @@ export class AuthService {
     const user = this.getCurrentUser();
     return user ? `${user.firstName} ${user.lastName}` : '';
   }
-  
+
   getUserRole(): string {
     return this.getCurrentUser()?.role ?? '';
   }

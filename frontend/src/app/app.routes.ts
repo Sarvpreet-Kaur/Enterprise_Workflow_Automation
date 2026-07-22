@@ -10,6 +10,7 @@ import { Profile } from './features/profile/profile';
 import { NotFound } from './shared/not-found/not-found';
 import { authGuard } from './core/guards/auth-guard';
 import { Layout } from './layouts/layout/layout';
+import { Teams } from './features/teams/teams';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full', },
@@ -21,6 +22,7 @@ export const routes: Routes = [
             { path: 'workflows', component: WorkflowList,canActivate: [authGuard]},
             { path: 'requests', component: RequestList, canActivate: [authGuard]},
             { path: 'approvals', component: PendingApprovals,canActivate: [authGuard]},
+            { path: 'teams', component: Teams,  canActivate: [authGuard]},
             { path: 'profile', component: Profile,  canActivate: [authGuard]},
         ],
     },

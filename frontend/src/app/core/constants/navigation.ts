@@ -3,43 +3,50 @@ export const NAVIGATION = [
     {
         title: 'Dashboard',
         icon: 'dashboard',
-        route: '/dashboard'
+        route: '/dashboard',
+        roles: ['employee', 'manager', 'admin']
     },
 
     {
         title: 'Users',
         icon: 'group',
-        route: '/users'
+        route: '/users',
+        roles: ['admin']
     },
 
     {
         title: 'Teams',
         icon: 'groups',
-        route: '/teams'
+        route: '/teams',
+        roles: ['admin']
     },
 
     {
         title: 'Workflows',
         icon: 'account_tree',
-        route: '/workflows'
+        route: '/workflows',
+        roles: ['admin']
     },
 
     {
         title: 'Requests',
         icon: 'description',
-        route: '/requests'
+        route: '/requests',
+        roles: ['employee', 'manager']
     },
 
     {
         title: 'Approvals',
         icon: 'task_alt',
-        route: '/approvals'
+        route: '/approvals',
+        roles: ['manager', 'admin']
     },
 
     {
         title: 'Profile',
         icon: 'person',
-        route: '/profile'
+        route: '/profile',
+        roles: ['employee', 'manager', 'admin']
     }
 
 ];

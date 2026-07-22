@@ -22,8 +22,6 @@
 
     min-height: calc(100vh - var(--header-height));
 
-    background: var(--surface-page);
-
 }
 
 /* ==========================================================
@@ -36,13 +34,11 @@
 
     overflow-y: auto;
 
-    overflow-x: hidden;
-
     background: var(--surface-page);
 
-    margin-left: 270px;
-
 }
+
+
 
 /* ==========================================================
    PAGE WRAPPER

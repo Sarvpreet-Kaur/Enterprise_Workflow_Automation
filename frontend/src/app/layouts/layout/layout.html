@@ -1,10 +1,11 @@
 <app-header></app-header>
 
-<div class="layout-container">
+<div
+    class="layout-container">
 
     <app-sidebar></app-sidebar>
 
-    <main class="content-container">
+    <main class="content-container" [class.sidebar-collapsed]="collapsed">
 
         <div class="page-wrapper">
 

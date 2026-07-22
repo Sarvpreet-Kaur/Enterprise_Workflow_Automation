@@ -1,29 +1,15 @@
-<aside class="sidebar">
-
+<aside class="sidebar" [class.collapsed]="collapsed">
     <nav class="sidebar-nav">
-
-        <a *ngFor="let item of navigation"  class="nav-item">
-
+        <a *ngFor="let item of navigation"  class="nav-item" [routerLink]="item.route" routerLinkActive="active">
             <mat-icon>
-
                 {{ item.icon }}
-
             </mat-icon>
-
-            <span>
-
+            <span class="nav-label">
                 {{ item.title }}
-
             </span>
-
         </a>
-
     </nav>
-
     <div class="sidebar-footer">
-
         Version 1.0
-
     </div>
-
 </aside>
