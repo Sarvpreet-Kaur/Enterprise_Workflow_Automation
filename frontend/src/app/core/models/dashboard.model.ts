@@ -1,3 +1,5 @@
+import { RecentRequest } from "./recent-requests.model";
+
 export interface DashboardResponse {
   summary: {
     drafts?: number;
@@ -7,11 +9,11 @@ export interface DashboardResponse {
     cancelled?: number;
   };
 
-  recentRequests: any[];
+  recentRequests: RecentRequest[];
 
   pendingApprovals: {
     count: number;
-    requests: any[];
+    requests: RecentRequest[];
   } | null;
 
   system: {

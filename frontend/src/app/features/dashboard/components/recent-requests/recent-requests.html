@@ -1,37 +1,70 @@
-@for (request of requests(); track request._id) {
+<div class="dashboard-panel">
+    <div class="panel-header">
+        <h3>
+            Recent Requests
+        </h3>
 
-    <div class="request-row">
+        @if(requests().length > 0){
 
-        <div class="request-left">
+        <button class="btn-link" (click)="viewAll()">
 
-            <div class="request-icon">
-                <mat-icon>description</mat-icon>
+            View All
+
+        </button>
+
+        }
+    </div>
+
+    <div class="panel-body">
+        @if(requests().length === 0){
+
+        <app-empty-state icon="description" title="No Requests" description="No requests are available.">
+        </app-empty-state>
+        }
+        @else{
+
+        @for (request of requests(); track request._id) {
+
+        <div class="request-row">
+
+            <div class="request-left">
+
+                <div class="request-icon">
+                    <mat-icon>description</mat-icon>
+                </div>
+
+                <div class="request-info">
+
+                    <h4>{{ request.title }}</h4>
+
+                    <span class="request-meta">
+                        @if(role === 'admin') {
+
+                        By {{ request.createdBy?.firstName }}
+                        {{ request.createdBy?.lastName }}
+                        •
+                        }
+                        {{ request.createdAt | date:'dd MMM yyyy' }}
+                    </span>
+
+                </div>
+
             </div>
 
-            <div class="request-info">
+            <div class="request-right">
 
-                <h4>{{ request.title }}</h4>
+                <span class="status-badge" [ngClass]="getStatusClass(request.status)">
 
-                <span class="request-meta">
-                    Created • {{ request.createdAt | date:'dd MMM yyyy' }}
+                    {{ request.status }}
+
                 </span>
 
             </div>
 
         </div>
 
-        <div class="request-right">
+        }
 
-            <span
-                class="status-badge"
-                [ngClass]="getStatusClass(request.status)">
-
-                {{ request.status }}
-
-            </span>
-
-        </div>
-
+        }
     </div>
-
-}
+</div>

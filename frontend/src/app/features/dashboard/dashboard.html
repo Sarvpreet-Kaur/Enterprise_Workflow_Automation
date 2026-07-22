@@ -29,29 +29,33 @@
 </section>
 
 <div class="stats-grid">
+
   @for(card of cards; track card.title){
 
   <app-stat-card [title]="card.title" [value]="card.value" [icon]="card.icon">
   </app-stat-card>
 
   }
+
 </div>
 
-<div class="dashboard-panel">
-  <div class="panel-header">
-    <h3>
-      Recent Requests
-    </h3>
+<section class="dashboard-content">
 
-    <button class="view-all-btn">
-      View All
-    </button>
-  </div>
+  <app-recent-requests [requests]="dashboard.recentRequests">
+  </app-recent-requests>
 
-  <div class="panel-body">
-    <app-recent-requests
-      [requests]="dashboard.recentRequests">
-    </app-recent-requests>
-  </div>
-</div>
+  @if(role === 'manager'){
 
+  <app-pending-approvals [approvals]="dashboard.pendingApprovals?.requests ?? []">
+  </app-pending-approvals>
+
+  }
+
+  @if(role === 'admin'){
+
+  <app-system-overview [system]="dashboard.system!">
+  </app-system-overview>
+
+  }
+
+</section>

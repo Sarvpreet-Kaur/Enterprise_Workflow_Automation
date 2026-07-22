@@ -7,10 +7,12 @@ import { DashboardResponse } from '../../core/models/dashboard.model';
 import { DashboardCard } from '../../core/models/dashboardCard.model';
 import { DashboardService } from '../../core/services/dashboard.service';
 import { RecentRequests } from './components/recent-requests/recent-requests';
-
+import { Router } from '@angular/router';
+import { PendingApprovals } from './components/pending-approvals/pending-approvals';
+import { SystemOverview } from './components/system-overview/system-overview';
 @Component({
   selector: 'app-dashboard',
-  imports: [DatePipe, StatCard, RecentRequests],
+  imports: [DatePipe, StatCard, RecentRequests, PendingApprovals, SystemOverview],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
@@ -18,12 +20,14 @@ export class Dashboard implements OnInit {
   private dashboardService = inject(DashboardService)
   private authService = inject(AuthService)
   private cdr = inject(ChangeDetectorRef)
+  private router = inject(Router)
 
   dashboard!: DashboardResponse;
   cards: DashboardCard[] = [];
 
 
   user = this.authService.getCurrentUser();
+  role = this.authService.getCurrentUserRole();
   currentDate = new Date();
 
   ngOnInit(): void {
@@ -41,7 +45,7 @@ export class Dashboard implements OnInit {
   private buildCards(): void {
     console.log("in")
     console.log(this.authService.getCurrentUserRole())
-    switch (this.authService.getCurrentUserRole()) {
+    switch (this.role) {
     case 'employee':
       this.cards = [
           {

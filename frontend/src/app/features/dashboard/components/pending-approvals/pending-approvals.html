@@ -1,1 +1,70 @@
-<p>pending-approvals works!</p>
+<div class="dashboard-panel">
+    <div class="panel-header">
+        <h3>
+            Pending Approvals
+        </h3>
+
+        @if(approvals().length > 0){
+
+        <button class="btn-link" (click)="viewAll()">
+
+            View All
+
+        </button>
+
+        }
+    </div>
+
+    <div class="panel-body">
+        @if(approvals().length === 0){
+
+        <app-empty-state icon="description" title="No Pending Approvals"
+            description="You have no approvals left to review.">
+        </app-empty-state>
+        }
+        @else{
+
+        @for (approval of approvals(); track approval._id) {
+
+        <div class="approval-row">
+
+            <div class="approval-left">
+
+                <div class="approval-icon">
+                    <mat-icon>pending_actions</mat-icon>
+                </div>
+
+                <div class="approval-info">
+
+                    <h4>{{ approval.workflow?.name }}</h4>
+
+                    <span class="approval-meta">
+                        <strong>
+                            By {{ approval.createdBy?.firstName }}
+                            {{ approval.createdBy?.lastName }}
+                        </strong>
+                        •
+                        {{ approval.createdAt | date:'dd MMM yyyy' }}
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="approval-right">
+
+                <button class="btn btn-outline-primary btn-sm" (click)="review()">
+
+                    Review
+
+                </button>
+
+            </div>
+
+        </div>
+
+        }
+
+        }
+    </div>
+</div>

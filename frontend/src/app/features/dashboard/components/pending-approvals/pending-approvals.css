@@ -1,0 +1,120 @@
+.approval-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 20px 24px;
+
+    border-bottom: 1px solid var(--border-light);
+
+}
+
+.approval-left {
+
+    display: flex;
+
+    gap: 16px;
+
+    align-items: center;
+
+}
+
+.approval-icon {
+
+    width: 46px;
+
+    height: 46px;
+
+    border-radius: 12px;
+
+    background: rgba(15, 76, 92, .08);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+.approval-icon mat-icon {
+
+    color: var(--color-secondary);
+
+}
+
+.approval-title {
+
+    margin: 0;
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    color: var(--text-primary);
+
+}
+
+.approval-meta {
+
+    display: block;
+
+    margin-top: 6px;
+
+    font-size: .85rem;
+
+    color: var(--text-secondary);
+
+}
+
+.approval-right {
+
+    display: flex;
+
+    align-items: center;
+}
+
+.approval-date {
+
+    font-size: .85rem;
+
+    color: var(--text-secondary);
+
+}
+
+.dashboard-panel {
+
+    background: var(--surface-card);
+
+    border: 1px solid var(--border-light);
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-sm);
+
+    overflow: hidden;
+
+}
+
+.panel-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 20px 24px;
+
+    border-bottom: 1px solid var(--border-light);
+
+}
+
+.panel-body {
+
+    min-height: 300px;
+
+}
