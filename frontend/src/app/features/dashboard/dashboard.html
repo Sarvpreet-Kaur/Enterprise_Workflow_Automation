@@ -1,2 +1,57 @@
-<p>dashboard works!</p>
-<h2>{{msg()}}</h2>
+<section class="welcome-section">
+  <div class="welcome-left">
+
+    <h1 class="page-title">
+
+      Welcome back,
+      <span>{{ user?.firstName }} {{ user?.lastName }}</span>
+
+    </h1>
+
+    <p class="page-subtitle">
+
+      Here's an overview of your workflow activity today.
+
+    </p>
+
+  </div>
+
+  <div class="welcome-right">
+
+    <div class="current-date">
+
+      {{ currentDate | date:'EEEE, dd MMMM yyyy' }}
+
+    </div>
+
+  </div>
+
+</section>
+
+<div class="stats-grid">
+  @for(card of cards; track card.title){
+
+  <app-stat-card [title]="card.title" [value]="card.value" [icon]="card.icon">
+  </app-stat-card>
+
+  }
+</div>
+
+<div class="dashboard-panel">
+  <div class="panel-header">
+    <h3>
+      Recent Requests
+    </h3>
+
+    <button class="view-all-btn">
+      View All
+    </button>
+  </div>
+
+  <div class="panel-body">
+    <app-recent-requests
+      [requests]="dashboard.recentRequests">
+    </app-recent-requests>
+  </div>
+</div>
+
