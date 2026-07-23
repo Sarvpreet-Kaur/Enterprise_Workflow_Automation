@@ -270,12 +270,20 @@
     background: transparent;
 
     border-top: 1px solid var(--border-light);
+    align-items: center;
+    text-align: center;
+}
 
+.mat-mdc-paginator-touch-target{
+  align-items: center;
+   text-align: center;
 }
 
 .mat-mdc-paginator-container {
 
     min-height: 60px;
+    align-items: center;
+    text-align: center;
 
 }
 
@@ -362,9 +370,25 @@
 
 }
 
+.status-active {
+
+    background: var(--success-bg);
+
+    color: var(--success);
+
+}
+
 .status-pending {
 
     background: var(--pending-bg);
+
+    color: var(--pending);
+
+}
+
+.status-inactive {
+
+    background: var(--danger-bg);
 
     color: var(--pending);
 

@@ -7,3 +7,43 @@
 @import "./_tables.css";
 @import "./_utilities.css";
 @import "./_material-overrides.css";
+
+/* Dropdown Panel */
+
+.cdk-overlay-pane .mat-mdc-select-panel {
+
+  background: var(--surface-card) !important;
+
+  border: 1px solid var(--border-light);
+
+  border-radius: 12px !important;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+}
+
+/* Options */
+
+.mat-mdc-option {
+
+  background: var(--surface-card) !important;
+
+  color: var(--text-primary);
+
+}
+
+/* Hover */
+
+.mat-mdc-option:hover {
+
+  background: var(--surface-hover) !important;
+
+}
+
+/* Selected */
+
+.mat-mdc-option.mdc-list-item--selected {
+
+  background: rgba(11, 44, 53, 0.08) !important;
+
+}

@@ -1,170 +1,141 @@
-import { Component, inject, AfterViewInit, OnInit } from '@angular/core';
-import { UserService } from '../../../core/services/user.service';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { User } from '../../../core/models/user.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { UserFormDialog } from '../user-form-dialog/user-form-dialog';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialog } from '../../../shared/confirmation-dialog/confirmation-dialog';
-import { CommonModule, NgClass } from '@angular/common';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { CommonModule } from '@angular/common';
+import { User } from '../../../core/models/user.model';
+import { Pagination } from '../../../core/models/paginationmodel';
+import { UserService } from '../../../core/services/user.service';
+import { MatTableModule } from '@angular/material/table';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { EmptyState } from '../../../shared/components/empty-state/empty-state';
+import { FilterBar } from '../../../shared/components/filter-bar/filter-bar';
+import { FilterConfig } from '../../../core/models/filterConfig.model';
 
 @Component({
   selector: 'app-user-list',
   imports: [
     CommonModule,
-    MatTableModule,
     MatButtonModule,
     MatIconModule,
+    MatTableModule,
     MatSlideToggleModule,
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,
     MatInputModule,
     MatPaginatorModule,
-    NgClass
+    EmptyState,
+    FilterBar
   ],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css',
 })
-export class UserList implements OnInit, AfterViewInit {
+export class UserList implements OnInit {
+  users: User[] = [];
+
+  isLoading = false;
+  displayedColumns = [
+    'name',
+    'email',
+    'role',
+    'teams',
+    'status',
+    'actions'
+  ];
+  currentPage = 1;
+  pageSize = 3;
+  pagination: Pagination = {
+    totalRecords: 0,
+    currentPage: 1,
+    totalPages: 0,
+    pageSize: this.pageSize
+  };
+  userFilters: FilterConfig[] = [
+    {
+        key:'role',
+        label:'Role',
+        options:[
+          { label: 'All Roles', value: '' },
+          { label: 'Admin', value: 'admin' },
+          { label: 'Manager', value: 'manager' },
+          { label: 'Employee', value: 'employee' }
+        ]
+    },
+    {
+        key:'status',
+        label:'Status',
+        options:[
+          { label: 'All Status', value: '' },
+          { label: 'Active', value: 'true' },
+          { label: 'Inactive', value: 'false' }
+        ]
+    },
+    {
+        key:'teams',
+        label:'Teams',
+        options:[] //TODO: extract teams data from teams api
+    }
+];
+  searchControl = new FormControl('', { nonNullable: true });
+  selectedFilters: Record<string,string> = {};
+
   private userService = inject(UserService);
-  private fb = inject(FormBuilder);
-  private dialog = inject(MatDialog);
-
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-
-  filterForm = this.fb.group({
-    search: [''],
-    role: [''],
-    department: [''],
-    status: [''],
-  });
-
-  users = new MatTableDataSource<User>();
-  totalRecords = 0;
-  search = '';
-  selectedRole = '';
-  selectedDepartment = '';
-  selectedStatus = '';
-  displayedColumns: string[] = ['name', 'email', 'department', 'role', 'status', 'actions'];
+  private cdr = inject(ChangeDetectorRef)
 
   ngOnInit() {
     this.loadUsers();
-
-    this.filterForm.valueChanges.pipe(debounceTime(500)).subscribe(() => {
-      this.loadUsers();
-    });
+    this.listenSearch();
   }
 
-  ngAfterViewInit() {
-    this.users.paginator = this.paginator;
-    this.paginator.page.subscribe(() => {
-      this.loadUsers();
-    });
-  }
+  loadUsers(): void {
 
-  loadUsers() {
-    const params: any = {};
-    params.page = this.paginator ? this.paginator.pageIndex + 1 : 1;
-    params.limit = this.paginator ? this.paginator.pageSize : 10;
+    this.isLoading = true;
+    this.userService.getUsers({search:this.searchControl.value,
+       page: this.currentPage,
+       limit: this.pageSize,
+       ...this.selectedFilters
+      }).subscribe({
+      next: (response) => {
+        this.users = response.data;
+        this.pagination = response.pagination
+        // this.pagination = response.pagination;
+        this.isLoading = false;
 
-    const filters = this.filterForm.value;
-    if (filters.search) {
-      params.search = filters.search;
-    }
-
-    if (filters.role) {
-      params.role = filters.role;
-    }
-
-    if (filters.department) {
-      params.department = filters.department;
-    }
-
-    if (filters.status !== '') {
-      params.status = filters.status;
-    }
-    this.userService.getUsers(params).subscribe({
-      next: (res) => {
-        this.users.data = res.data;
-        this.totalRecords = res.pagination.totalRecords;
         console.log(this.users);
+        this.cdr.detectChanges()
       },
-      error: (err) => {
-        console.error('Error in load users: ' + err);
-      },
-    });
-  }
-
-  openAddDialog() {
-    const dialogRef = this.dialog.open(UserFormDialog, {
-      width: '800px',
-      maxWidth: '95vw',
-      maxHeight: '90vh',
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.loadUsers();
+      error: () => {
+        this.isLoading = false;
       }
     });
   }
 
-  openEditDialog(user: User) {
-    const dialogRef = this.dialog.open(UserFormDialog, {
-      width: '800px',
-      maxWidth: '95vw',
-      maxHeight: '90vh',
-      disableClose: true,
-      data: user,
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.loadUsers();
-      }
+  listenSearch(){
+    this.searchControl.valueChanges.pipe(
+      debounceTime(400),
+      distinctUntilChanged())
+    .subscribe(search => {
+      this.currentPage = 1
+      this.loadUsers();
     });
   }
 
-  deleteUser(user: User) {
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      width: '420px',
+  onPageChange(event: PageEvent): void {
+    this.currentPage = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+    this.loadUsers();
+  }
 
-      data: {
-        title: 'Delete User',
+  onFiltersChanged(filters:Record<string,string>){
+    this.selectedFilters=filters;
+    this.currentPage=1;
+    this.loadUsers();
 
-        message: `Are you sure you want to delete ${user.firstName} ${user.lastName}?`,
-
-        confirmButtonText: 'Delete',
-
-        cancelButtonText: 'Cancel',
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (!result) return;
-
-      this.userService.deleteUser(user._id!).subscribe({
-        next: () => {
-          this.loadUsers();
-        },
-
-        error: (err) => {
-          console.error(err);
-        },
-      });
-    });
   }
 }

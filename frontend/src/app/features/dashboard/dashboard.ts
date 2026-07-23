@@ -10,9 +10,10 @@ import { RecentRequests } from './components/recent-requests/recent-requests';
 import { Router } from '@angular/router';
 import { PendingApprovals } from './components/pending-approvals/pending-approvals';
 import { SystemOverview } from './components/system-overview/system-overview';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-dashboard',
-  imports: [DatePipe, StatCard, RecentRequests, PendingApprovals, SystemOverview],
+  imports: [DatePipe, StatCard, RecentRequests, PendingApprovals, SystemOverview, MatIconModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

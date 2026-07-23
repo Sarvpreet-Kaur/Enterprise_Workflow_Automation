@@ -43,7 +43,7 @@ exports.createUser = async (req) => {
 exports.getUsers = async(req)=>{
     const search = req.query.search;
     const role = req.query.role;
-    const department = req.query.department;
+    const teams = req.query.teams;
     const status = req.query.status;
 
     const page = Number(req.query.page) || 1;
@@ -59,16 +59,16 @@ exports.getUsers = async(req)=>{
         ];
     }
 
-    if(role){
+    if(role && role!==''){
         query.role = role
     }
 
-    if(status !== undefined){
+    if(status !== undefined && status!==''){
         query.isActive = status==='true'
     }
 
-    if(department){
-        query.department = department
+    if(teams && teams!==''){
+        query.teams = teams
     }
 
     const user = await User.find(query).select("-password").skip(skip).limit(limit).populate("teams","name department");

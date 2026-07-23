@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserFormDialog } from './user-form-dialog';
+import { FilterBar } from './filter-bar';
 
-describe('UserFormDialog', () => {
-  let component: UserFormDialog;
-  let fixture: ComponentFixture<UserFormDialog>;
+describe('FilterBar', () => {
+  let component: FilterBar;
+  let fixture: ComponentFixture<FilterBar>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserFormDialog],
+      imports: [FilterBar],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UserFormDialog);
+    fixture = TestBed.createComponent(FilterBar);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

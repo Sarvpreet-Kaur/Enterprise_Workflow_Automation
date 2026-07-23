@@ -28,6 +28,8 @@
    --surface-sidebar: #0B2C35;
    --surface-header: #FFFFFF;
    --surface-hover: #F7F8F9;
+   --surface-selected: #EEF3F8;      /* Selected row / active item */
+   --surface-disabled: #F4F5F7;      /* Disabled inputs/buttons */
 
    /* ======================================================
        TEXT COLORS
