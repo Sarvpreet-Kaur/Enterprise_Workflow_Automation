@@ -21,4 +21,11 @@ export class FilterBar {
     this.filtersChanged.emit(this.selectedFilters);
 
   }
+  resetFilters() {
+
+    this.selectedFilters = {};
+
+    this.filtersChanged.emit({});
+
+}
 }

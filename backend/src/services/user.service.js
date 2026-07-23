@@ -72,10 +72,30 @@ exports.getUsers = async(req)=>{
     }
 
     const user = await User.find(query).select("-password").skip(skip).limit(limit).populate("teams","name department");
+    const totalUsers = await User.countDocuments(query)
+    const activeUsers = await User.countDocuments({
+        ...query,
+        isActive: true
+    });
 
+    const inActiveUsers = await User.countDocuments({
+        ...query,
+        isActive: false
+    });
+
+    const admins = await User.countDocuments({
+        ...query,
+        role: "admin"
+    });
     const totalRecords = await User.countDocuments(query);
     const totalPages = Math.ceil(totalRecords/limit);
     return ({
+        summary:{
+            totalUsers,
+            activeUsers,
+            inActiveUsers,
+            admins
+        },
         data: user,
         pagination: {
             totalRecords,

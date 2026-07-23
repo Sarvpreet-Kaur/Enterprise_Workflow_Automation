@@ -8,28 +8,46 @@
     </p>
   </div>
 </section>
-<div class="page-toolbar">
-  <div class="toolbar-top">
-    <div class="search-input">
-      <mat-icon>
-        search
-      </mat-icon>
-      <input type="text" placeholder="Search users" [formControl]="searchControl">
-    </div>
+<div class="stats-grid">
 
-    <button mat-flat-button color="primary">
-      <mat-icon>
-        add
-      </mat-icon>
-      Add User
-    </button>
-  </div>
-  
-  <div class="toolbar-bottom">
-    <app-filter-bar [filters]="userFilters" (filtersChanged)="onFiltersChanged($event)">
-    </app-filter-bar>
-  </div>
+  @for(card of cards; track card.title){
+
+  <app-stat-card [title]="card.title" [value]="card.value" [icon]="card.icon">
+
+  </app-stat-card>
+
+  }
+
 </div>
+<div class="toolbar-card">
+
+  <div class="search-input">
+    <mat-icon>
+      search
+    </mat-icon>
+    <input type="text" placeholder="Search users" [formControl]="searchControl">
+  </div>
+
+  <app-filter-bar #filterBar [filters]="userFilters" (filtersChanged)="onFiltersChanged($event)">
+  </app-filter-bar>
+
+  <button class="reset-btn" (click)="resetFilters()" mat-stroked-button>
+
+    Reset
+
+  </button>
+
+  <span class="toolbar-spacer"></span>
+
+  <button mat-flat-button color="primary">
+    <mat-icon>
+      add
+    </mat-icon>
+    Add User
+  </button>
+
+</div>
+
 <div class="content-card" *ngIf="!isLoading">
   <div class="table-container">
     @if(users.length == 0){

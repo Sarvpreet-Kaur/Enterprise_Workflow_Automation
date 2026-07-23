@@ -1,2 +1,78 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./styles/styles.css";
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;      /* Prevent page scrolling */
+}
+
+app-root {
+    display: block;
+    height: 100%;
+}
+
+.app-layout {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.content-area {
+    flex: 1;
+    display: flex;
+    min-height: 0;          /* VERY IMPORTANT */
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 280px;
+    transition: width .25s ease;
+    flex-shrink: 0;
+}
+
+.sidebar.collapsed {
+    width: 80px;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;       /* Only this scrolls */
+    overflow-x: hidden;
+}
+
+.cdk-overlay-pane .mat-mdc-select-panel{
+
+    background:var(--surface-card)!important;
+
+    border-radius:14px!important;
+
+    border:1px solid var(--border-light);
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.mat-mdc-option{
+
+    background:var(--surface-card)!important;
+
+}
+
+.mat-mdc-option:hover{
+
+    background:var(--surface-hover)!important;
+
+}
+
+.mat-mdc-form-field-subscript-wrapper{
+    display:none;
+}
+
+.mat-mdc-form-field-focus-overlay{
+    opacity:0 !important;
+}

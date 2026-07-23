@@ -1,29 +1,26 @@
-@for(filter of filters(); track filter.key){
+<div class="filters-container">
+    @for(filter of filters(); track filter.key){
 
-    <mat-form-field appearance="outline">
+        <mat-form-field appearance="fill">
 
-        <mat-label>
+            <mat-label>
+                {{ filter.label }}
+            </mat-label>
 
-            {{filter.label}}
+            <mat-select [value]="selectedFilters[filter.key]"
+                (selectionChange)="onChange(filter.key, $event.value)">
 
-        </mat-label>
+                @for(option of filter.options; track option.value){
 
-        <mat-select
-            (selectionChange)="onChange(filter.key,$event.value)">
+                    <mat-option [value]="option.value">
+                        {{ option.label }}
+                    </mat-option>
 
-            @for(option of filter.options; track option.value){
+                }
 
-                <mat-option
-                    [value]="option.value">
+            </mat-select>
 
-                    {{option.label}}
+        </mat-form-field>
 
-                </mat-option>
-
-            }
-
-        </mat-select>
-
-    </mat-form-field>
-
-}
+    }
+</div>

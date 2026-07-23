@@ -532,6 +532,134 @@
     pointer-events: none;
 
 }
+
+/* ============================
+   Toolbar Filters
+============================ */
+
+.filters-container{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    flex-wrap:wrap;
+
+}
+
+.filters-container .mat-mdc-form-field{
+
+    width:180px;
+
+    margin:0;
+
+}
+
+/* Reduce overall height */
+
+.filters-container .mat-mdc-text-field-wrapper{
+
+    height:46px !important;
+
+    background:var(--surface-card);
+
+    border-radius:12px;
+
+}
+
+/* Proper vertical alignment */
+
+.filters-container .mat-mdc-form-field-flex{
+
+    height:46px;
+
+    align-items:center;
+
+}
+
+/* Remove excessive Material padding */
+
+.filters-container .mat-mdc-form-field-infix{
+
+    min-height:auto !important;
+
+    padding-top:10px !important;
+
+    padding-bottom:10px !important;
+
+}
+
+/* Label */
+
+.filters-container .mat-mdc-floating-label{
+
+    top:22px !important;
+
+    font-size:.92rem;
+
+    color:var(--text-secondary);
+
+}
+
+/* Softer outline */
+
+.filters-container .mdc-notched-outline__leading,
+.filters-container .mdc-notched-outline__notch,
+.filters-container .mdc-notched-outline__trailing{
+
+    border-color:#D9E2E8 !important;
+
+    border-width:1px !important;
+
+}
+
+/* Hover */
+
+.filters-container .mat-mdc-form-field:hover .mdc-notched-outline__leading,
+.filters-container .mat-mdc-form-field:hover .mdc-notched-outline__notch,
+.filters-container .mat-mdc-form-field:hover .mdc-notched-outline__trailing{
+
+    border-color:#BCC8D0 !important;
+
+}
+
+/* Focus */
+
+.filters-container .mat-focused .mdc-notched-outline__leading,
+.filters-container .mat-focused .mdc-notched-outline__notch,
+.filters-container .mat-focused .mdc-notched-outline__trailing{
+
+    border-color:var(--primary) !important;
+
+}
+
+/* Arrow */
+
+.filters-container .mat-mdc-select-arrow{
+
+    color:var(--text-secondary);
+
+}
+
+.filters-container .mat-mdc-text-field-wrapper{
+
+    background:white !important;
+
+    border:1px solid #DCE4EA;
+
+    border-radius:12px !important;
+
+    box-shadow:none;
+
+}
+
+.filters-container .mdc-notched-outline{
+
+    display:none;
+
+}
 /* ==========================================================
    RESPONSIVE
 ========================================================== */
