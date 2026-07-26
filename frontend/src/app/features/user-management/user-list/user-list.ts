@@ -19,6 +19,12 @@ import { FilterConfig } from '../../../core/models/filterConfig.model';
 import { ViewChild } from '@angular/core';
 import { DashboardCard } from '../../../core/models/dashboardCard.model';
 import { StatCard } from '../../../shared/components/stat-card/stat-card';
+import { Team } from '../../../core/models/teams.model';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { TeamService } from '../../../core/services/teams.services';
+import { UserForm } from '../user-form/user-form';
+import { FilterOption } from '../../../core/models/filterOption.model';
+import { AlertService } from '../../../core/services/alert.service';
 
 @Component({
   selector: 'app-user-list',
@@ -35,15 +41,19 @@ import { StatCard } from '../../../shared/components/stat-card/stat-card';
     MatPaginatorModule,
     EmptyState,
     FilterBar,
-    StatCard
+    StatCard,
+    MatDialogModule,
   ],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css',
 })
 export class UserList implements OnInit {
   users: User[] = [];
+  teams: Team[] = [];
+  teamFilterOptions: FilterOption[] = [];
 
-  isLoading = false;
+  isUsersLoading = false;
+  isTeamsLoading = false;
   displayedColumns = ['name', 'email', 'role', 'teams', 'status', 'actions'];
   currentPage = 1;
   pageSize = 5;
@@ -53,32 +63,7 @@ export class UserList implements OnInit {
     totalPages: 0,
     pageSize: this.pageSize,
   };
-  userFilters: FilterConfig[] = [
-    {
-      key: 'role',
-      label: 'Role',
-      options: [
-        { label: 'All Roles', value: '' },
-        { label: 'Admin', value: 'admin' },
-        { label: 'Manager', value: 'manager' },
-        { label: 'Employee', value: 'employee' },
-      ],
-    },
-    {
-      key: 'status',
-      label: 'Status',
-      options: [
-        { label: 'All Status', value: '' },
-        { label: 'Active', value: 'true' },
-        { label: 'Inactive', value: 'false' },
-      ],
-    },
-    {
-      key: 'teams',
-      label: 'Teams',
-      options: [], //TODO: extract teams data from teams api
-    },
-  ];
+  userFilters: FilterConfig[] = [];
   cards: DashboardCard[] = [];
   searchControl = new FormControl('', { nonNullable: true });
   selectedFilters: Record<string, string> = {};
@@ -86,14 +71,59 @@ export class UserList implements OnInit {
 
   private userService = inject(UserService);
   private cdr = inject(ChangeDetectorRef);
+  private dialog = inject(MatDialog);
+  private teamService = inject(TeamService);
+  private alertService = inject(AlertService)
 
   ngOnInit() {
     this.loadUsers();
     this.listenSearch();
+    this.loadTeams();
+  }
+
+  addUser() {
+    const dialogRef = this.dialog.open(UserForm, {
+      width: '900px',
+      disableClose: true,
+
+      data: {
+        teams: this.teams,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadUsers();
+      }
+    });
+  }
+
+  editUser(user: User) {
+    const dialogRef = this.dialog.open(UserForm, {
+      width: '900px',
+
+      disableClose: true,
+
+      data: {
+        isEdit: true,
+
+        user,
+
+        teams: this.teams,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        setTimeout(() => {
+          this.loadUsers();
+        });
+      }
+    });
   }
 
   loadUsers(): void {
-    this.isLoading = true;
+    this.isUsersLoading = true;
     this.userService
       .getUsers({
         search: this.searchControl.value,
@@ -107,21 +137,72 @@ export class UserList implements OnInit {
           this.buildCards(response.summary);
           this.pagination = response.pagination;
           // this.pagination = response.pagination;
-          this.isLoading = false;
+          this.isUsersLoading = false;
 
           console.log(this.users);
           this.cdr.detectChanges();
         },
         error: () => {
-          this.isLoading = false;
+          this.isUsersLoading = false;
         },
       });
+  }
+
+  loadTeams(): void {
+    this.isTeamsLoading = true;
+    this.teamService.getTeams().subscribe({
+      next: (response) => {
+        this.teams = response.data;
+        this.buildTeamFilters();
+        this.buildFilters();
+        this.isTeamsLoading = false;
+      },
+      error: () => {
+        this.isTeamsLoading = false;
+      },
+    });
+  }
+
+  buildTeamFilters() {
+    this.teamFilterOptions = this.teams?.map((team) => ({
+      label: team?.name,
+      value: team?._id,
+    }));
+  }
+
+  buildFilters() {
+    this.userFilters = [
+      {
+        key: 'role',
+        label: 'Role',
+        options: [
+          { label: 'Admin', value: 'admin' },
+          { label: 'Manager', value: 'manager' },
+          { label: 'Employee', value: 'employee' },
+        ],
+      },
+
+      {
+        key: 'status',
+        label: 'Status',
+        options: [
+          { label: 'Active', value: 'active' },
+          { label: 'Inactive', value: 'inactive' },
+        ],
+      },
+
+      {
+        key: 'teams',
+        label: 'Team',
+        options: this.teamFilterOptions,
+      },
+    ];
   }
 
   listenSearch() {
     this.searchControl.valueChanges
       .pipe(debounceTime(400), distinctUntilChanged())
-      .subscribe((search) => {
+      .subscribe(() => {
         this.currentPage = 1;
         this.loadUsers();
       });
@@ -149,7 +230,12 @@ export class UserList implements OnInit {
     this.loadUsers();
   }
 
-  buildCards(summary: {totalUsers: number, activeUsers: number, inActiveUsers: number, admins: number}) {
+  buildCards(summary: {
+    totalUsers: number;
+    activeUsers: number;
+    inActiveUsers: number;
+    admins: number;
+  }) {
     this.cards = [
       {
         title: 'Total Users',
@@ -176,4 +262,55 @@ export class UserList implements OnInit {
       },
     ];
   }
+
+  async deleteUser(user: User) {
+    if(!user.isActive){
+      return;
+    }
+
+    const result = await this.alertService.confirm(
+
+        'Delete User',
+
+        `Are you sure you want to delete ${user.firstName}?`
+
+    );
+
+    if (!result.isConfirmed) {
+
+        return;
+
+    }
+    const id = user._id!
+    this.userService.deleteUser(id).subscribe({
+
+        next: () => {
+
+            this.alertService.success(
+
+                'Deleted',
+
+                'User deleted successfully.'
+
+            );
+
+            this.loadUsers();
+
+        },
+
+        error: (err) => {
+
+            this.alertService.error(
+
+                'Delete Failed',
+
+                err.error.message
+
+            );
+
+        }
+
+    });
+
+}
 }

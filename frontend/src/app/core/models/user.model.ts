@@ -5,7 +5,7 @@ export interface User {
     email: string;
     role: string;
     teams?: {
-      _id?: string;
+      _id: string;
       name?: string;
       department?: string
     };

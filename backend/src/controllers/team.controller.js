@@ -18,7 +18,8 @@ const getTeams = async(req, res, next)=>{
         const Teams = await teamService.getTeams(req)
         res.status(201).json({
             success: true,
-            data: Teams
+            data: Teams.data,
+            pagination :Teams.pagination
         })
     }
     catch(err){

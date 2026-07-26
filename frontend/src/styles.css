@@ -76,3 +76,25 @@ app-root {
 .mat-mdc-form-field-focus-overlay{
     opacity:0 !important;
 }
+
+.flowdesk-backdrop{
+
+    background:rgba(6,18,22,.82)!important;
+
+    backdrop-filter:blur(8px);
+
+}
+
+.flowdesk-dialog .mat-mdc-dialog-surface{
+
+    padding:0!important;
+
+    overflow:hidden!important;
+
+    border-radius:22px!important;
+
+    background:transparent!important;
+
+    box-shadow:none!important;
+
+}

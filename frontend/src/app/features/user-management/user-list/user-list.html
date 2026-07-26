@@ -39,7 +39,7 @@
 
   <span class="toolbar-spacer"></span>
 
-  <button mat-flat-button color="primary">
+  <button mat-flat-button color="primary" (click)="addUser()">
     <mat-icon>
       add
     </mat-icon>
@@ -48,7 +48,7 @@
 
 </div>
 
-<div class="content-card" *ngIf="!isLoading">
+<div class="content-card" *ngIf="!isUsersLoading">
   <div class="table-container">
     @if(users.length == 0){
     <app-empty-state icon="description" title="No user exist"
@@ -106,13 +106,13 @@
           Action
         </th>
         <td mat-cell *matCellDef="let user">
-          <button mat-icon-button>
+          <button mat-icon-button (click)="editUser(user)">
             <mat-icon>
               edit
             </mat-icon>
           </button>
 
-          <button mat-icon-button>
+          <button mat-icon-button (click)="deleteUser(user)">
             <mat-icon>
               delete
             </mat-icon>

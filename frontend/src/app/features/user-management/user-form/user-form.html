@@ -1,0 +1,321 @@
+<div class="dialog-container">
+
+    <!-- Header -->
+
+    <div class="dialog-header">
+
+        <div class="header-content">
+
+            <h2 class="dialog-title">
+                {{ isEdit ? 'Edit User' : 'Create User' }}
+            </h2>
+
+            <p class="dialog-subtitle">
+                {{ isEdit
+                ? 'Update the user information.'
+                : 'Add a new user to your organization.' }}
+            </p>
+
+        </div>
+
+        <button mat-icon-button class="close-btn" (click)="dialogRef.close()">
+
+            <mat-icon>close</mat-icon>
+
+        </button>
+
+    </div>
+
+    <!-- Form -->
+
+    <form [formGroup]="userForm" (ngSubmit)="save()">
+
+        <div class="dialog-body">
+
+            <div class="form-grid">
+
+                <!-- First Name -->
+
+                <div class="form-field">
+
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>First Name</mat-label>
+
+                        <input matInput formControlName="firstName">
+
+                    </mat-form-field>
+
+                    @if(userForm.get('firstName')?.touched &&
+                    userForm.get('firstName')?.hasError('required')){
+
+                    <small class="error">
+
+                        First name is required.
+
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- Last Name -->
+
+                <div class="form-field">
+
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>Last Name</mat-label>
+
+                        <input matInput formControlName="lastName">
+
+                    </mat-form-field>
+
+                    @if(userForm.get('lastName')?.touched &&
+                    userForm.get('lastName')?.hasError('required')){
+
+                    <small class="error">
+
+                        Last name is required.
+
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- Email -->
+
+                <div class="form-field">
+
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>Email</mat-label>
+
+                        <input matInput type="email" formControlName="email">
+
+                    </mat-form-field>
+
+                    @if(userForm.get('email')?.touched &&
+                    userForm.get('email')?.hasError('required')){
+
+                    <small class="error">
+
+                        Email is required.
+
+                    </small>
+
+                    }
+
+                    @if(userForm.get('email')?.touched &&
+                    userForm.get('email')?.hasError('email')){
+
+                    <small class="error">
+
+                        Enter a valid email address.
+
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- Password -->
+
+                @if(!isEdit){
+
+                <div class="form-field">
+
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>Password</mat-label>
+
+                        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+
+                        <button mat-icon-button matSuffix type="button" class="eye-btn"
+                            (click)="hidePassword = !hidePassword">
+
+                            <mat-icon>
+
+                                {{ hidePassword ? 'visibility_off' : 'visibility' }}
+
+                            </mat-icon>
+
+                        </button>
+
+                    </mat-form-field>
+
+                    @if(userForm.get('password')?.touched &&
+                    userForm.get('password')?.hasError('required')){
+
+                    <small class="error">
+
+                        Password is required.
+
+                    </small>
+
+                    }
+                    @else if(userForm.get('password')?.touched &&
+                    userForm.get('password')?.hasError('minlength')){
+
+                    <small class="error">
+
+                        Password must be at least 8 characters long.
+
+                    </small>
+
+                    }
+
+                    @else if(userForm.get('password')?.touched &&
+                    userForm.get('password')?.hasError('pattern')){
+
+                    <small class="error">
+
+                        Password must contain one uppercase, one lowercase, one number and one special character.
+
+                    </small>
+
+                    }
+
+                </div>
+
+                }
+
+                <!-- Role -->
+
+                <div class="form-field">
+
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>Role</mat-label>
+
+                        <mat-select formControlName="role">
+
+                            <mat-option value="admin">
+                                Admin
+                            </mat-option>
+
+                            <mat-option value="manager">
+                                Manager
+                            </mat-option>
+
+                            <mat-option value="employee">
+                                Employee
+                            </mat-option>
+
+                        </mat-select>
+
+                    </mat-form-field>
+
+                    @if(userForm.get('role')?.touched &&
+                    userForm.get('role')?.hasError('required')){
+
+                    <small class="error">
+
+                        Please select a role.
+
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- Team -->
+
+                <div class="form-field">
+
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>Team</mat-label>
+
+                        <mat-select formControlName="teams">
+
+                            @for(team of teams; track team._id){
+
+                            <mat-option [value]="team._id">
+
+                                {{ team.name }}
+
+                            </mat-option>
+
+                            }
+
+                        </mat-select>
+
+                    </mat-form-field>
+
+                    @if(userForm.get('teams')?.touched &&
+                    userForm.get('teams')?.hasError('required')){
+
+                    <small class="error">
+
+                        Please select a team.
+
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- Status -->
+
+                <div class="status-section">
+
+                    <label class="status-label">
+
+                        Status
+
+                    </label>
+
+                    <mat-radio-group class="status-group" formControlName="isActive">
+
+                        <mat-radio-button [value]="true">
+
+                            Active
+
+                        </mat-radio-button>
+
+                        <mat-radio-button [value]="false">
+
+                            Inactive
+
+                        </mat-radio-button>
+
+                    </mat-radio-group>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+
+        <div class="dialog-footer">
+
+            <button type="button" mat-stroked-button class="cancel-btn" (click)="dialogRef.close()">
+
+                Cancel
+
+            </button>
+
+            <button type="submit" mat-flat-button class="save-btn" >
+
+                @if(isSaving){
+
+                Saving...
+
+                }
+                @else{
+
+                {{ isEdit ? 'Update User' : 'Save User' }}
+
+                }
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>

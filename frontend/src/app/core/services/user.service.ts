@@ -3,7 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environment';
 import { UserResponse } from '../models/userResponse.model';
-
+import { User } from '../models/user.model';
+import { ApiResponse } from '../models/api-response.model';
+import { CreateUser } from '../models/createUser.model';
+import { Team } from '../models/teams.model';
+import { UpdateUser } from '../models/updateUser.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,19 +25,19 @@ export class UserService {
   //   return this.http.get<any>(`${this.apiUrl}/${id}`);
   // }
 
-  // createUser(user: User): Observable<ApiResponse<User>> {
-  //   return this.http.post<any>(this.apiUrl, user);
-  // }
+  createUser(user: CreateUser)  {
+    return this.http.post<ApiResponse<User>>(this.apiUrl, user);
+  }
 
-  // updateUser(id: string, user: User): Observable<ApiResponse<User>> {
-  //   return this.http.put<any>(`${this.apiUrl}/${id}`, user);
-  // }
+  updateUser(id: string, user: UpdateUser)  {
+    return this.http.put<ApiResponse<User>>(`${this.apiUrl}/${id}`, user);
+  }
 
   // changeUserStatus(id: string, status: boolean): Observable<ApiResponse<User>> {
   //   return this.http.patch<any>(`${this.apiUrl}/${id}/${status}`, {});
   // }
 
-  // deleteUser(id: string): Observable<ApiResponse<User>> {
-  //   return this.http.delete<any>(`${this.apiUrl}/${id}`);
-  // }
+  deleteUser(id: string) {
+    return this.http.delete<ApiResponse<User>>(`${this.apiUrl}/${id}`);
+  }
 }

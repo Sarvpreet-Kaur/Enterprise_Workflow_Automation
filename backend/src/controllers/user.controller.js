@@ -57,7 +57,7 @@ const getUserById = async(req, res)=>{
 
 const updateUser = async(req, res)=>{
     try{
-        const user = await userService.updateUser(req)
+        const user = await userService.updateUser(req.params.id, req)
         res.status(200).json({
             success: true,
             data: user

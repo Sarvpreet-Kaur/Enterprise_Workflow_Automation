@@ -160,6 +160,7 @@ exports.updateUser = async (id, req) => {
     user.firstName = data.firstName ?? user.firstName;
     user.lastName = data.lastName ?? user.lastName;
     user.email = data.email ?? user.email;
+    user.isActive = data.isActive?? user.isActive
     if (data.password) {
         user.password = await bcrypt.hash(data.password, 10);
     }

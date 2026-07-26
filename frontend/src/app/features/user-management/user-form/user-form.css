@@ -1,0 +1,500 @@
+:host{
+    display:block;
+}
+
+.mat-mdc-form-field-infix{
+
+    padding-top:16px!important;
+
+    padding-bottom:14px!important;
+
+}
+/* =========================================================
+   Dialog Container
+========================================================= */
+
+.dialog-container{
+
+    width:100%;
+    max-width:900px;
+
+    background:var(--surface-sidebar);
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 24px 60px rgba(0,0,0,.45);
+
+}
+
+/* =========================================================
+   Header
+========================================================= */
+
+.dialog-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    padding:30px 34px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.header-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.dialog-title{
+
+    margin:0;
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    color:#F2EFEA;
+
+}
+
+.dialog-subtitle{
+
+    margin-top:8px;
+
+    color:#C7D4D8;
+
+    font-size:.95rem;
+
+}
+
+.close-btn{
+
+    color:#F2EFEA !important;
+
+}
+
+.close-btn:hover{
+
+    background:rgba(255,255,255,.08);
+
+}
+
+/* =========================================================
+   Body
+========================================================= */
+.dialog-body{
+
+    background:#15444F;
+
+    padding:38px;
+
+}
+
+/* =========================================================
+   Form Grid
+========================================================= */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    column-gap:28px;
+
+    row-gap:26px;
+
+}
+
+/* =========================================================
+   Material Fields
+========================================================= */
+/* ===========================================
+   Material Fields
+=========================================== */
+
+.form-grid .mat-mdc-form-field{
+
+    width:100%;
+
+}
+
+.mat-mdc-form-field .mat-mdc-floating-label{
+
+    color:#D8E7EB!important;
+
+}
+
+.mat-focused .mat-mdc-floating-label{
+
+    color:#7FD3E8!important;
+
+}
+
+/* Remove underline */
+
+.form-grid .mdc-line-ripple{
+
+    display:none;
+
+}
+
+/* Field background */
+
+.form-grid .mat-mdc-text-field-wrapper{
+
+    background:#1E5663!important;
+
+    border-radius:14px!important;
+
+    border:1px solid rgba(255,255,255,.12);
+
+}
+
+/* Hover */
+
+.form-grid .mat-mdc-text-field-wrapper:hover{
+
+    border-color:rgba(255,255,255,.25);
+
+    background:#24616F!important;
+
+}
+
+/* Focus */
+
+.mat-focused .mat-mdc-text-field-wrapper{
+
+    background:#24616F!important;
+
+    box-shadow:0 0 0 3px rgba(127,211,232,.18);
+
+}
+
+/* Remove Material overlay */
+
+.form-grid .mat-mdc-form-field-focus-overlay{
+
+    display:none;
+
+}
+
+/* Remove notched outline completely */
+
+.form-grid .mdc-notched-outline{
+
+    display:none!important;
+
+}
+
+/* Label */
+
+.form-grid .mat-mdc-floating-label{
+
+    color:#D5E6EA!important;
+
+    font-size:.95rem;
+
+    font-weight:500;
+
+}
+
+/* Focus label */
+
+.form-grid .mat-focused .mat-mdc-floating-label{
+
+    color:#7FD3E8!important;
+
+}
+
+/* Input */
+
+.form-grid .mat-mdc-input-element{
+
+    color:#24616F !important;
+
+
+    font-weight:500;
+
+}
+
+.form-grid .mat-mdc-input-element::placeholder{
+
+    color:#24616F!important;
+
+}
+
+.form-grid input{
+
+    color:#F7FBFC!important;
+
+}
+
+/* Select */
+
+.form-grid .mat-mdc-select-value{
+
+    color:#F7FBFC!important;
+
+}
+.mat-mdc-select-arrow{
+
+    color:#FFFFFF!important;
+
+}
+
+/* Placeholder */
+
+.form-grid input::placeholder{
+
+    color:#AEC5CB;
+
+}
+
+/* Required star */
+
+.mat-mdc-form-field-required-marker{
+
+    color:#7FD3E8!important;
+
+}
+
+.form-field{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.form-field mat-form-field{
+
+    width:100%;
+
+}
+
+.error{
+
+    display:block;
+
+    margin-top:4px;
+
+    margin-left:4px;
+
+    color:#FF7E7E;
+
+    font-size:12px;
+
+    font-weight:500;
+
+    line-height:1.3;
+
+    letter-spacing:.2px;
+
+    min-height:18px;
+
+}
+/* =========================================================
+   Status
+========================================================= */
+
+.status-section{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+    color:#F2EFEA;
+
+}
+
+.status-label{
+
+    font-size:.95rem;
+
+    font-weight:600;
+
+}
+
+.status-group{
+
+    display:flex;
+
+    gap:26px;
+
+}
+
+.status-group .mat-mdc-radio-button{
+
+    color:#F2EFEA;
+
+}
+
+.mat-mdc-radio-button{
+
+    --mdc-radio-selected-icon-color:#7FD3E8;
+
+    --mdc-radio-selected-hover-icon-color:#7FD3E8;
+
+    --mdc-radio-unselected-icon-color:#F2EFEA;
+
+    color:#F2EFEA;
+
+}
+
+.eye-btn{
+
+    color:#0d2228!important;
+
+    transition:.2s;
+
+}
+
+.eye-btn mat-icon{
+
+    font-size:22px;
+
+}
+/* =========================================================
+   Errors
+========================================================= */
+
+mat-error{
+
+    color:#FF9A9A!important;
+
+    font-size:.82rem;
+
+    font-weight:500;
+
+}
+.mat-mdc-form-field-error{
+
+    color:#FF6B6B !important;
+
+    font-size:13px !important;
+
+    font-weight:500;
+
+    line-height:18px;
+
+}
+
+.mat-mdc-form-field-subscript-wrapper{
+
+    display:block !important;
+
+    min-height:22px;
+
+}
+/* =========================================================
+   Footer
+========================================================= */
+
+.dialog-footer{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    align-items:center;
+
+    gap:16px;
+
+    padding:22px 34px;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+/* =========================================================
+   Buttons
+========================================================= */
+
+.cancel-btn{
+
+    color:#F2EFEA!important;
+
+    border:1px solid rgba(255,255,255,.18)!important;
+
+    border-radius:12px!important;
+
+}
+
+.cancel-btn:hover{
+
+    background:rgba(255,255,255,.08)!important;
+
+}
+
+.save-btn{
+
+    background:#F2EFEA!important;
+
+    color:#0B2C35!important;
+
+    font-weight:700;
+
+    border-radius:12px!important;
+
+}
+
+.save-btn:hover{
+
+    background:rgb(205, 205, 205)!important;
+
+}
+
+/* =========================================================
+   Responsive
+========================================================= */
+
+@media(max-width:768px){
+
+    .dialog-body{
+
+        padding:24px;
+
+    }
+
+    .dialog-header{
+
+        padding:24px;
+
+    }
+
+    .dialog-footer{
+
+        padding:20px 24px;
+
+        flex-direction:column-reverse;
+
+    }
+
+    .dialog-footer button{
+
+        width:100%;
+
+    }
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
