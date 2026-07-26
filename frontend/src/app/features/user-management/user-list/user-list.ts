@@ -186,8 +186,8 @@ export class UserList implements OnInit {
         key: 'status',
         label: 'Status',
         options: [
-          { label: 'Active', value: 'active' },
-          { label: 'Inactive', value: 'inactive' },
+          { label: 'Active', value: 'true' },
+          { label: 'Inactive', value: 'false' },
         ],
       },
 

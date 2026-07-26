@@ -1,0 +1,206 @@
+<div class="dialog-container">
+
+    <!-- Header -->
+
+    <div class="dialog-header">
+
+        <div class="header-content">
+
+            <h2 class="dialog-title">
+                {{ isEdit ? 'Edit Team' : 'Create Team' }}
+            </h2>
+
+            <p class="dialog-subtitle">
+                {{ isEdit
+                ? 'Update the team information.'
+                : 'Add a new team to your organization.' }}
+            </p>
+
+        </div>
+
+        <button mat-icon-button class="close-btn" (click)="dialogRef.close()">
+
+            <mat-icon>close</mat-icon>
+
+        </button>
+
+    </div>
+
+    <!-- Form -->
+
+    <form [formGroup]="teamForm" (ngSubmit)="save()">
+
+        <div class="dialog-body">
+
+            <div class="form-grid">
+
+                <div class="form-field">
+
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>Name</mat-label>
+
+                        <input matInput formControlName="name">
+
+                    </mat-form-field>
+
+                    @if(teamForm.get('name')?.touched &&
+                    teamForm.get('name')?.hasError('required')){
+
+                    <small class="error">
+
+                        Name is required.
+
+                    </small>
+
+                    }
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>department</mat-label>
+
+                        <mat-select formControlName="department">
+
+                            <mat-option value="Engineering">
+                                Engineering
+                            </mat-option>
+
+                            <mat-option value="HR">
+                                HR
+                            </mat-option>
+
+                            <mat-option value="IT">
+                                IT
+                            </mat-option>
+
+                            <mat-option value="Operations">
+                                Operations
+                            </mat-option>
+
+                            <mat-option value="Finance">
+                                Finance
+                            </mat-option>
+
+                        </mat-select>
+
+                    </mat-form-field>
+
+                    @if(teamForm.get('department')?.touched &&
+                    teamForm.get('department')?.hasError('required')){
+
+                    <small class="error">
+
+                        Please select a department.
+
+                    </small>
+
+                    }
+
+                </div>
+
+                <mat-form-field appearance="fill">
+
+                    <mat-label>Manager</mat-label>
+
+                    <mat-select formControlName="manager">
+
+                        @for(manager of managers; track manager._id){
+
+                        <mat-option [value]="manager._id">
+
+                            {{ manager.firstName }} {{ manager.lastName }}
+
+                        </mat-option>
+
+                        }
+
+                    </mat-select>
+
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+
+                    <mat-label>Admin</mat-label>
+
+                    <mat-select formControlName="admin">
+
+                        @for(admin of admins; track admin._id){
+
+                        <mat-option [value]="admin._id">
+
+                            {{ admin.firstName }} {{ admin.lastName }}
+
+                        </mat-option>
+
+                        }
+
+                    </mat-select>
+
+                </mat-form-field>
+                <!-- Status -->
+
+                <div class="status-section">
+
+                    <label class="status-label">
+
+                        Status
+
+                    </label>
+
+                    <mat-radio-group class="status-group" formControlName="isActive">
+
+                        <mat-radio-button [value]="true">
+
+                            Active
+
+                        </mat-radio-button>
+
+                        <mat-radio-button [value]="false">
+
+                            Inactive
+
+                        </mat-radio-button>
+
+                    </mat-radio-group>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+
+        <div class="dialog-footer">
+
+            <button type="button" mat-stroked-button class="cancel-btn" (click)="dialogRef.close()">
+
+                Cancel
+
+            </button>
+
+            <button type="submit" mat-flat-button class="save-btn">
+
+                @if(isSaving){
+
+                Saving...
+
+                }
+                @else{
+
+                {{ isEdit ? 'Update Team' : 'Save Team' }}
+
+                }
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>

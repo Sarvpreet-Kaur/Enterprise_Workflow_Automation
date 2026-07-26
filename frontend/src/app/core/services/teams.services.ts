@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environment';
 import { TeamResponse } from '../models/teamsResponse.model';
+import { Team } from '../models/teams.model';
+import { ApiResponse } from '../models/api-response.model';
+import { CreateTeam } from '../models/createTeam.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,23 +19,23 @@ export class TeamService {
     return this.http.get<TeamResponse>(this.apiUrl, { params });
   }
 
-  // getUserById(id: string): Observable<ApiResponse<User>> {
+  // getUserById(id: string) {
   //   return this.http.get<any>(`${this.apiUrl}/${id}`);
   // }
 
-  // createUser(user: User): Observable<ApiResponse<User>> {
-  //   return this.http.post<any>(this.apiUrl, user);
-  // }
+  createTeam(team: CreateTeam) {
+    return this.http.post<ApiResponse<Team>>(this.apiUrl, team);
+  }
 
-  // updateUser(id: string, user: User): Observable<ApiResponse<User>> {
-  //   return this.http.put<any>(`${this.apiUrl}/${id}`, user);
-  // }
+  updateTeam(id: string, team: CreateTeam) {
+    return this.http.put<ApiResponse<Team>>(`${this.apiUrl}/${id}`, team);
+  }
 
-  // changeUserStatus(id: string, status: boolean): Observable<ApiResponse<User>> {
+  // changeUserStatus(id: string, status: boolean) {
   //   return this.http.patch<any>(`${this.apiUrl}/${id}/${status}`, {});
   // }
 
-  // deleteUser(id: string): Observable<ApiResponse<User>> {
-  //   return this.http.delete<any>(`${this.apiUrl}/${id}`);
-  // }
+  deleteTeam(id: string) {
+    return this.http.delete<ApiResponse<Team>>(`${this.apiUrl}/${id}`);
+  }
 }

@@ -37,6 +37,7 @@ exports.getTeams = async (req) => {
     const manager = req.query.manager
     const admin = req.query.admin
     const department = req.query.department
+    const status = req.query.status;
 
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 10;
@@ -54,6 +55,10 @@ exports.getTeams = async (req) => {
         query.manager = manager
     }
 
+    if(status !== undefined && status!==''){
+        query.isActive = status==='true'
+    }
+
     if(department && department!==''){
         query.department = department
     }
@@ -61,7 +66,7 @@ exports.getTeams = async (req) => {
     if(admin && admin!==''){
         query.admin = admin
     }
-    const teams = await Team.find({...query, isActive: true })
+    const teams = await Team.find({...query})
         .skip(skip).limit(limit)
         .populate(ROLES.MANAGER, "firstName lastName email role")
         .populate(ROLES.ADMIN, "firstName lastName email role")
