@@ -15,11 +15,11 @@ const createWorkflow = async (req, res, next) => {
 
 const getWorkflows = async (req, res, next) => {
     try {
-        const workflows = await workflowService.getWorkflows();
+        const workflows = await workflowService.getWorkflows(req);
         return res.status(200).json({
             success: true,
-            count: workflows.length,
-            data: workflows
+            data: workflows.data,
+            pagination :workflows.pagination
         });
     } catch (error) {
         next(error);

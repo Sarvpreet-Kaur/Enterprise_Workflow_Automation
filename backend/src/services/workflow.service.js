@@ -50,10 +50,33 @@ exports.createWorkflow = async (data) => {
     return workflow;
 };
 
-exports.getWorkflows = async() => {
-    const workflows = await Workflow.find({isActive: true})
-    .sort({ createdAt: -1 });
-
+exports.getWorkflows = async(req) => {
+    const search = req.query.search;
+    
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page-1)*limit;
+    
+    const query = {};
+    if (search) {
+        query.$or = [
+            { name: { $regex: search, $options: "i" }},
+        ];
+    }
+    const workflows = await Workflow.find(query).skip(skip).limit(limit).sort({ createdAt: -1 });;
+    
+    const totalRecords = await Workflow.countDocuments(query);
+    const totalPages = Math.ceil(totalRecords/limit);
+    return ({
+        data: workflows,
+        pagination: {
+            totalRecords,
+            currentPage: page,
+            totalPages,
+            pageSize: limit
+        }
+    });
+    
     return workflows;
 }
 

@@ -1,1 +1,119 @@
-<p>workflow-list works!</p>
+<section class="page-header">
+    <div>
+        <h1 class="page-title">
+            Workflows
+        </h1>
+        <p class="page-subtitle">
+            Manage organizational wide Workflows.
+        </p>
+    </div>
+</section>
+
+<div class="toolbar-card">
+
+    <div class="search-input">
+        <mat-icon>
+            search
+        </mat-icon>
+        <input type="text" placeholder="Search workflows" [formControl]="searchControl">
+    </div>
+
+    <button class="reset-btn" (click)="resetFilters()" mat-stroked-button>
+
+        Reset
+
+    </button>
+
+    <span class="toolbar-spacer"></span>
+
+    <button mat-flat-button color="primary" (click)="addWorkflow()">
+        <mat-icon>
+            add
+        </mat-icon>
+        Add Workflow
+    </button>
+
+</div>
+
+<div class="content-card" *ngIf="!isWorkflowLoading">
+    <div class="table-container">
+        @if(workflows.length == 0){
+        <app-empty-state icon="description" title="No workflow exist"
+            description="There are no workflows available."></app-empty-state>
+        }
+        @else{
+
+        <div class="workflow-grid">
+
+            @for(workflow of workflows; track workflow._id){
+
+            <div class="workflow-card">
+
+                <!-- Header -->
+                <div class="card-header">
+                    <div>
+                        <h3>
+                            {{workflow.name}}
+                        </h3>
+                        <p>
+                            {{workflow.description || 'No description available'}}
+                        </p>
+                    </div>
+                    <span class="status-badge" [class.active]="workflow.isActive">
+                        {{workflow.isActive ? 'Active' : 'Inactive'}}
+                    </span>
+                </div>
+
+                <!-- Flow -->
+                <div class="workflow-flow">
+                    <div class="workflow-flow">
+
+                        @for(step of workflow.steps;
+                        track step.order;
+                        let last = $last){
+                            <div class="workflow-step">
+                                <div class="step-circle">
+                                    {{step.order}}
+                                </div>
+                                <span class = "flow-text">
+                                    {{step.approverRole | titlecase}}
+                                </span>
+                            </div>
+                            @if(!last){
+                            <mat-icon>
+                                arrow_forward
+                            </mat-icon>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="card-footer">
+                    <span class = "flow-text">
+                        {{workflow.steps.length}}
+                        Approval Steps
+                    </span>
+                    <div class="actions">
+                        <button mat-icon-button class = "flow-text" (click)="editWorkflow(workflow)">
+                            <mat-icon>
+                                edit
+                            </mat-icon>
+                        </button>
+                        <button mat-icon-button class = "flow-text" (click)="deleteWorkflow(workflow)">
+                            <mat-icon>
+                                delete
+                            </mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+        }
+    </div>
+</div>
+
+<mat-paginator [length]="pagination.totalRecords" [pageSize]="pagination.pageSize"
+    [pageIndex]="pagination.currentPage - 1" [pageSizeOptions]="[5, 10, 20, 50]" (page)="onPageChange($event)">
+</mat-paginator>

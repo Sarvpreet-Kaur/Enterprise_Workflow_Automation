@@ -1,0 +1,234 @@
+<div class="dialog-container">
+
+    <!-- Header -->
+
+    <div class="dialog-header">
+
+        <div class="header-content">
+
+            <h2 class="dialog-title">
+                {{ isEdit ? 'Edit Workflow' : 'Create Workflow' }}
+            </h2>
+
+            <p class="dialog-subtitle">
+                {{ isEdit
+                ? 'Update the Workflow information.'
+                : 'Add a new Workflow for your organization.' }}
+            </p>
+
+        </div>
+
+        <button mat-icon-button class="close-btn" (click)="dialogRef.close()">
+
+            <mat-icon>close</mat-icon>
+
+        </button>
+
+    </div>
+
+    <!-- Form -->
+    <mat-dialog-content class="dialog-body">
+        <form [formGroup]="workflowForm" (ngSubmit)="save()">
+
+            <div >
+
+                <div class="form-grid">
+
+                    <div class="form-field">
+
+                        <mat-form-field appearance="fill">
+
+                            <mat-label>Workflow Name</mat-label>
+
+                            <input matInput formControlName="name">
+
+                        </mat-form-field>
+
+                        <!-- @if(teamForm.get('name')?.touched &&
+                    teamForm.get('name')?.hasError('required')){
+
+                    <small class="error">
+
+                        Name is required.
+
+                    </small>
+
+                    } -->
+
+                    </div>
+
+                    <div class="form-field">
+
+                        <mat-form-field appearance="fill">
+
+                            <mat-label>Description</mat-label>
+
+                            <textarea matInput formControlName="description"></textarea>
+
+                        </mat-form-field>
+
+                        <!-- @if(teamForm.get('name')?.touched &&
+                    teamForm.get('name')?.hasError('required')){
+
+                    <small class="error">
+
+                        Name is required.
+
+                    </small>
+
+                    } -->
+
+                    </div>
+
+                    <!-- Status -->
+
+                    <div class="status-section">
+
+                        <label class="status-label">
+
+                            Status
+
+                        </label>
+
+                        <mat-radio-group class="status-group" formControlName="isActive">
+
+                            <mat-radio-button [value]="true">
+
+                                Active
+
+                            </mat-radio-button>
+
+                            <mat-radio-button [value]="false">
+
+                                Inactive
+
+                            </mat-radio-button>
+
+                        </mat-radio-group>
+
+                    </div>
+
+                    <!-- Approval Steps -->
+
+                    <div class="approval-section">
+
+                        <div class="approval-header">
+
+                            <h3>Approval Steps</h3>
+
+                            <button type="button" mat-stroked-button class="add-step-btn" (click)="addStep()">
+
+                                <mat-icon>add</mat-icon>
+
+                                Add Step
+
+                            </button>
+
+                        </div>
+
+                        <div formArrayName="steps">
+
+                            @for(step of steps.controls; track $index; let i = $index){
+
+                            <div class="step-card" [formGroupName]="i">
+
+                                <div class="step-title">
+
+                                    <span>
+
+                                        Step {{i+1}}
+
+                                    </span>
+
+                                    <button type="button" mat-icon-button color="warn" (click)="removeStep(i)">
+
+                                        <mat-icon>
+
+                                            delete
+
+                                        </mat-icon>
+
+                                    </button>
+
+                                </div>
+
+                                <div class="step-grid">
+
+                                    <mat-form-field appearance="fill">
+
+                                        <mat-label>
+
+                                            Approver Role
+
+                                        </mat-label>
+
+                                        <mat-select formControlName="approverRole">
+
+                                            <mat-option value="manager">
+
+                                                Manager
+
+                                            </mat-option>
+
+                                            <mat-option value="admin">
+
+                                                Admin
+
+                                            </mat-option>
+
+                                        </mat-select>
+
+                                    </mat-form-field>
+
+                                    <mat-checkbox formControlName="canReject">
+
+                                        Can Reject
+
+                                    </mat-checkbox>
+
+                                </div>
+
+                            </div>
+
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+
+            <div class="dialog-footer">
+
+                <button type="button" mat-stroked-button class="cancel-btn" (click)="dialogRef.close()">
+
+                    Cancel
+
+                </button>
+
+                <button type="submit" mat-flat-button class="save-btn">
+
+                    @if(isSaving){
+
+                    Saving...
+
+                    }
+                    @else{
+
+                    {{ isEdit ? 'Update Workflow' : 'Save Workflow' }}
+
+                    }
+
+                </button>
+
+            </div>
+
+        </form>
+    </mat-dialog-content>
+
+
+</div>
