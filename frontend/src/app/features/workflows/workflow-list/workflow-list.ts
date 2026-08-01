@@ -113,57 +113,57 @@ export class WorkflowList implements OnInit {
   }
 
   editWorkflow(workflow: Workflow) {
-    // const dialogRef = this.dialog.open(TeamForm, {
-    //   width: '900px',
-    //   disableClose: true,
-    //   data: {
-    //     isEdit: true,
-    //     team,
-    //   },
-    // });
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result) {
-    //     setTimeout(() => {
-    //       this.loadTeams();
-    //     });
-    //   }
-    // });
+    const dialogRef = this.dialog.open(WorkflowForm, {
+      width: '900px',
+      disableClose: true,
+      data: {
+        isEdit: true,
+        workflow,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        setTimeout(() => {
+          this.loadWorkflows();
+        });
+      }
+    });
   }
 
   async deleteWorkflow(workflow: Workflow) {
-    // if (!team.isActive) {
-    //   return;
-    // }
+    if (!workflow.isActive) {
+      return;
+    }
 
-    // const result = await this.alertService.confirm(
-    //   'Delete Team',
+    const result = await this.alertService.confirm(
+      'Delete Workflow',
 
-    //   `Are you sure you want to delete ${team.name}?`,
-    // );
+      `Are you sure you want to delete ${workflow.name}?`,
+    );
 
-    // if (!result.isConfirmed) {
-    //   return;
-    // }
-    // const id = team._id!;
-    // this.teamService.deleteTeam(id).subscribe({
-    //   next: () => {
-    //     this.alertService.success(
-    //       'Deleted',
+    if (!result.isConfirmed) {
+      return;
+    }
+    const id = workflow._id!;
+    this.workflowService.deleteWorkflow(id).subscribe({
+      next: () => {
+        this.alertService.success(
+          'Deleted',
 
-    //       'Team deleted successfully.',
-    //     );
+          'Workflow deleted successfully.',
+        );
 
-    //     this.loadTeams();
-    //   },
+        this.loadWorkflows();
+      },
 
-    //   error: (err) => {
-    //     this.alertService.error(
-    //       'Delete Failed',
+      error: (err) => {
+        this.alertService.error(
+          'Delete Failed',
 
-    //       err.error.message,
-    //     );
-    //   },
-    // });
+          err.error.message,
+        );
+      },
+    });
   }
 
   loadWorkflows(): void {

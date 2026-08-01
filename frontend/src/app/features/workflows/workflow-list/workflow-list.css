@@ -366,3 +366,57 @@
     align-items:center;
 
 }
+
+.status-badge{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+    border:1px solid transparent;
+
+}
+
+.status-badge mat-icon{
+
+    font-size:18px;
+
+    width:18px;
+
+    height:18px;
+
+}
+
+/* Active */
+
+.status-badge.active{
+
+    background:rgba(74, 222, 128, .12);
+
+    color:#A7F3D0;
+
+    border-color:rgba(74,222,128,.25);
+
+}
+
+/* Inactive */
+
+.status-badge.inactive{
+
+    background:rgba(248,113,113,.10);
+
+    color:#FECACA;
+
+    border-color:rgba(248,113,113,.22);
+
+}

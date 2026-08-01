@@ -59,8 +59,14 @@
                             {{workflow.description || 'No description available'}}
                         </p>
                     </div>
-                    <span class="status-badge" [class.active]="workflow.isActive">
-                        {{workflow.isActive ? 'Active' : 'Inactive'}}
+                    <span class="status-badge" [class.active]="workflow.isActive" [class.inactive]="!workflow.isActive">
+
+                        <mat-icon>
+                            {{ workflow.isActive ? 'check_circle' : 'cancel' }}
+                        </mat-icon>
+
+                        {{ workflow.isActive ? 'Active' : 'Inactive' }}
+
                     </span>
                 </div>
 
@@ -71,36 +77,36 @@
                         @for(step of workflow.steps;
                         track step.order;
                         let last = $last){
-                            <div class="workflow-step">
-                                <div class="step-circle">
-                                    {{step.order}}
-                                </div>
-                                <span class = "flow-text">
-                                    {{step.approverRole | titlecase}}
-                                </span>
+                        <div class="workflow-step">
+                            <div class="step-circle">
+                                {{step.order}}
                             </div>
-                            @if(!last){
-                            <mat-icon>
-                                arrow_forward
-                            </mat-icon>
-                            }
+                            <span class="flow-text">
+                                {{step.approverRole | titlecase}}
+                            </span>
+                        </div>
+                        @if(!last){
+                        <mat-icon>
+                            arrow_forward
+                        </mat-icon>
+                        }
                         }
                     </div>
                 </div>
 
                 <!-- Footer -->
                 <div class="card-footer">
-                    <span class = "flow-text">
+                    <span class="flow-text">
                         {{workflow.steps.length}}
                         Approval Steps
                     </span>
                     <div class="actions">
-                        <button mat-icon-button class = "flow-text" (click)="editWorkflow(workflow)">
+                        <button mat-icon-button class="flow-text" (click)="editWorkflow(workflow)">
                             <mat-icon>
                                 edit
                             </mat-icon>
                         </button>
-                        <button mat-icon-button class = "flow-text" (click)="deleteWorkflow(workflow)">
+                        <button mat-icon-button class="flow-text" (click)="deleteWorkflow(workflow)">
                             <mat-icon>
                                 delete
                             </mat-icon>
