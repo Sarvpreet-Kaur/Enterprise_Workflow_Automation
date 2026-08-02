@@ -270,15 +270,44 @@ exports.cancelRequest = async (req) => {
 };
 
 exports.getPendingRequests = async (req) => {
+    const search = req.query.search;
+    const workflow = req.query.workflow;
+    const priority = req.query.priority;
 
-    return await Request.find({
-        currentApprover: req.user._id,
-        status: "Pending"
-    })
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page-1)*limit;
+    let query = {};
+    if (search) {
+        query.$or = [
+            { title: { $regex: search, $options: "i" }}
+        ];
+    }
+    if(workflow && workflow!==''){
+        query.workflow = workflow
+    }
+
+    if(priority && priority!==''){
+        query.priority = priority
+    }
+    query = {...query, currentApprover: req.user._id, status: "Pending"}
+    const requests = await Request.find(query)
     .populate("createdBy","firstName lastName")
     .populate("workflow","name")
     .populate("team","name department")
     .populate("approvalHistory.approver", "firstName lastName");
+
+    const totalRecords = await Request.countDocuments(query);
+    const totalPages = Math.ceil(totalRecords/limit);
+    return ({
+        data: requests,
+        pagination: {
+            totalRecords,
+            currentPage: page,
+            totalPages,
+            pageSize: limit
+        }
+    });
 }
 
 exports.approveRequest = async(req)=>{

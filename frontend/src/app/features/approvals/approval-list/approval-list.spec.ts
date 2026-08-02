@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PendingApprovals } from './pending-approvals';
+import { ApprovalList } from './approval-list';
 
-describe('PendingApprovals', () => {
-  let component: PendingApprovals;
-  let fixture: ComponentFixture<PendingApprovals>;
+describe('ApprovalList', () => {
+  let component: ApprovalList;
+  let fixture: ComponentFixture<ApprovalList>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PendingApprovals],
+      imports: [ApprovalList],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PendingApprovals);
+    fixture = TestBed.createComponent(ApprovalList);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

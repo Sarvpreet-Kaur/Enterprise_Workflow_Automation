@@ -42,11 +42,4 @@ export const NAVIGATION = [
         roles: ['manager', 'admin']
     },
 
-    {
-        title: 'Profile',
-        icon: 'person',
-        route: '/profile',
-        roles: ['employee', 'manager', 'admin']
-    }
-
 ];

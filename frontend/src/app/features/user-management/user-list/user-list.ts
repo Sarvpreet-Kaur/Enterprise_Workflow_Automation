@@ -99,6 +99,9 @@ export class UserList implements OnInit {
   }
 
   editUser(user: User) {
+    if(!user.isActive){
+      return;
+    }
     const dialogRef = this.dialog.open(UserForm, {
       width: '900px',
 
@@ -152,7 +155,7 @@ export class UserList implements OnInit {
     this.isTeamsLoading = true;
     this.teamService.getTeams().subscribe({
       next: (response) => {
-        this.teams = response.data;
+        this.teams = response.data.filter((team) => team.isActive);;
         this.buildTeamFilters();
         this.buildFilters();
         this.isTeamsLoading = false;

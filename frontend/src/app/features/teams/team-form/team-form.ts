@@ -86,7 +86,7 @@ export class TeamForm implements OnInit {
       })
       .subscribe({
         next: (response) => {
-          this.managers = response.data;
+          this.managers = response.data.filter((manager)=>manager.isActive);
 
           if (this.isEdit && this.team) {
             this.teamForm.patchValue({
@@ -106,7 +106,7 @@ export class TeamForm implements OnInit {
       })
       .subscribe({
         next: (response) => {
-          this.admins = response.data;
+          this.admins = response.data.filter((admin)=>admin.isActive);;
 
           if (this.isEdit && this.team) {
             this.teamForm.patchValue({
