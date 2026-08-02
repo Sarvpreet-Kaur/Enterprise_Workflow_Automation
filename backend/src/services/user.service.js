@@ -2,7 +2,7 @@ const { ROLES } = require("../constants/roles");
 const User = require("../models/userSchema")
 const bcrypt = require("bcrypt")
 const Team = require("../models/teamSchema");
-const ApiError = require("../utils/apiError")
+const ApiError = require("../utils/ApiError")
 
 exports.createUser = async (req) => {
     const data = req.body;

@@ -1,7 +1,7 @@
 const User = require("../models/userSchema");
 const Team = require("../models/teamSchema");
 const Workflow = require("../models/workflowSchema");
-const ApiError = require("../utils/apiError");
+const ApiError = require("../utils/ApiError");
 const { ROLES } = require("../constants/roles");
 const Request = require("../models/requestSchema");
 
