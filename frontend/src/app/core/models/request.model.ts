@@ -1,4 +1,5 @@
-import { ApprovalHistory } from "./approvalHistory.model";
+import { ApprovalHistory } from './approvalHistory.model';
+import { WorkflowStep } from './workflow.model';
 
 export interface Request {
   _id: string;
@@ -10,6 +11,8 @@ export interface Request {
   workflow: {
     _id: string;
     name: string;
+    description?: string;
+    steps?: WorkflowStep[];
   };
 
   priority: 'Low' | 'Medium' | 'High';

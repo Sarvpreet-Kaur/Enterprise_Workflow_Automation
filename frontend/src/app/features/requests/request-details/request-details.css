@@ -1,0 +1,386 @@
+:host{
+
+    display:block;
+
+}
+
+.dialog-container{
+
+    width:min(1000px,95vw);
+
+    background:var(--surface-sidebar);
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:0 24px 60px rgba(0,0,0,.45);
+
+}
+
+.dialog-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    padding:28px 34px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.dialog-title{
+
+    margin:0;
+
+    font-size:2rem;
+
+    color:#F2EFEA;
+
+    font-weight:700;
+
+}
+
+.dialog-subtitle{
+
+    margin-top:8px;
+
+    color:#B9CDD2;
+
+}
+
+.close-btn{
+
+    color:#F2EFEA !important;
+
+}
+
+.dialog-body{
+
+    background:#15444F;
+
+    padding:32px;
+
+    max-height:70vh;
+
+    overflow-y:auto;
+
+}
+
+.info-card{
+
+    background:#1E5663;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:18px;
+
+    padding:24px;
+
+    margin-bottom:24px;
+
+}
+
+.card-title{
+
+    margin:0 0 20px;
+
+    color:#F2EFEA;
+
+    font-size:1.15rem;
+
+    font-weight:600;
+
+}
+
+.info-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:22px;
+
+}
+
+.info-item{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.full-width{
+
+    grid-column:1/-1;
+
+}
+
+.info-item label{
+
+    color:#A9C2C8;
+
+    font-size:.82rem;
+
+    margin-bottom:6px;
+
+}
+
+.info-item span{
+
+    color:#F7FBFC;
+
+    font-size:.96rem;
+
+    line-height:1.6;
+
+}
+
+.priority-badge,
+.status-badge{
+
+    width:fit-content;
+
+    padding:5px 12px;
+
+    border-radius:999px;
+
+    font-size:.82rem;
+
+    font-weight:600;
+
+}
+
+.priority-badge.high{
+
+    background:rgba(255,99,99,.18);
+
+    color:#FF8E8E;
+
+}
+
+.priority-badge.medium{
+
+    background:rgba(255,193,7,.18);
+
+    color:#FFD86F;
+
+}
+
+.priority-badge.low{
+
+    background:rgba(127,211,232,.16);
+
+    color:#7FD3E8;
+
+}
+
+.status-badge.pending{
+
+    background:rgba(255,193,7,.18);
+
+    color:#FFD86F;
+
+}
+
+.status-badge.approved{
+
+    background:rgba(76,175,80,.18);
+
+    color:#81F495;
+
+}
+
+.status-badge.rejected{
+
+    background:rgba(244,67,54,.18);
+
+    color:#FF8F8F;
+
+}
+
+.status-badge.cancelled{
+
+    background:rgba(120,120,120,.25);
+
+    color:#D2D2D2;
+
+}
+
+.status-badge.draft{
+
+    background:rgba(127,211,232,.16);
+
+    color:#7FD3E8;
+
+}
+
+.workflow-progress{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:14px;
+
+    flex-wrap:wrap;
+
+}
+
+.workflow-node{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.circle{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    background:#355F68;
+
+    color:#D9E9EC;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:700;
+
+}
+
+.circle.completed{
+
+    background:#4CAF50;
+
+    color:white;
+
+}
+
+.circle.current{
+
+    background:#7FD3E8;
+
+    color:#103841;
+
+}
+
+.connector{
+
+    width:60px;
+
+    height:2px;
+
+    background:rgba(255,255,255,.18);
+
+}
+
+.history-item{
+
+    border-left:3px solid #7FD3E8;
+
+    padding-left:18px;
+
+    margin-bottom:20px;
+
+}
+
+.history-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#F7FBFC;
+
+    margin-bottom:8px;
+
+}
+
+.history-body{
+
+    color:#C9D7DA;
+
+    margin-bottom:8px;
+
+}
+
+.history-footer{
+
+    color:#8FA9AE;
+
+    font-size:.85rem;
+
+}
+
+.empty-history{
+
+    text-align:center;
+
+    padding:28px;
+
+    color:#AFC5CA;
+
+}
+
+.dialog-footer{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    padding:22px 34px;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+.cancel-btn{
+
+    color:#F2EFEA!important;
+
+    border:1px solid rgba(255,255,255,.15)!important;
+
+}
+
+.cancel-btn:hover{
+
+    background:rgba(255,255,255,.08)!important;
+
+}
+
+@media(max-width:768px){
+
+    .info-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .full-width{
+
+        grid-column:auto;
+
+    }
+
+}

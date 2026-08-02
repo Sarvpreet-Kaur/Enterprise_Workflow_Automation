@@ -7,7 +7,7 @@ const { ROLES } = require("../constants/roles");
 const {createTeam, getTeams, getTeamById, updateTeam, deleteTeam} = require('../controllers/team.controller')
 
 teamRouter.use(authMiddleware);
-teamRouter.use(roleMiddleware(ROLES.ADMIN));
+teamRouter.use(roleMiddleware(ROLES.ADMIN, ROLES.MANAGER));
 
 teamRouter.post("/", createTeam);
 teamRouter.get("/", getTeams);

@@ -1,1 +1,270 @@
-<p>request-details works!</p>
+<div class="dialog-container">
+
+    <!-- Header -->
+
+    <div class="dialog-header">
+
+        <div class="header-content">
+
+            <h2 class="dialog-title">
+                Request Details
+            </h2>
+
+            <p class="dialog-subtitle">
+                View complete information about this request.
+            </p>
+
+        </div>
+
+        <button mat-icon-button class="close-btn" (click)="dialogRef.close()">
+
+            <mat-icon>close</mat-icon>
+
+        </button>
+
+    </div>
+
+    <div class="dialog-body" *ngIf="request as request">
+
+        <!-- ===========================
+             Basic Information
+        ============================ -->
+
+        <div class="info-card">
+
+            <h3 class="card-title">
+                Request Information
+            </h3>
+
+            <div class="info-grid">
+
+                <div class="info-item">
+
+                    <label>Title</label>
+
+                    <span>{{request.title}}</span>
+
+                </div>
+
+                <div class="info-item">
+
+                    <label>Workflow</label>
+
+                    <span>{{request.workflow.name}}</span>
+
+                </div>
+
+                <div class="info-item full-width">
+
+                    <label>Description</label>
+
+                    <span>{{request.description}}</span>
+
+                </div>
+
+                <div class="info-item">
+
+                    <label>Priority</label>
+
+                    <span class="priority-badge" [ngClass]="request.priority.toLowerCase()">
+
+                        {{request.priority}}
+
+                    </span>
+
+                </div>
+
+                <div class="info-item">
+
+                    <label>Status</label>
+
+                    <span class="status-badge" [ngClass]="request.status.toLowerCase()">
+
+                        {{request.status}}
+
+                    </span>
+
+                </div>
+
+                <div class="info-item">
+
+                    <label>Created By</label>
+
+                    <span>
+
+                        {{request.createdBy.firstName}}
+                        {{request.createdBy.lastName}}
+
+                    </span>
+
+                </div>
+
+                <div class="info-item">
+
+                    <label>Team</label>
+
+                    <span>
+
+                        {{request.team.name}}
+
+                    </span>
+
+                </div>
+
+                <div class="info-item">
+
+                    <label>Current Approver</label>
+
+                    <span>
+
+                        {{request.currentApprover?.firstName || '-'}}
+                        {{request.currentApprover?.lastName || ''}}
+
+                    </span>
+
+                </div>
+
+                <div class="info-item">
+
+                    <label>Submitted On</label>
+
+                    <span>
+
+                        {{request.submittedAt | date:'medium'}}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===========================
+             Workflow Progress
+        ============================ -->
+
+        <div class="info-card">
+
+            <h3 class="card-title">
+                Workflow Progress
+            </h3>
+
+            <div class="workflow-progress">
+
+                @for(step of request.workflow.steps;
+                track step.order;
+                let last = $last){
+
+                <div class="workflow-node">
+
+                    <div class="circle" [class.completed]="step.order < (request.currentStep ?? 0)"
+                        [class.current]="step.order === (request.currentStep ?? 0)">
+
+                        {{step.order}}
+
+                    </div>
+
+                    <span>
+
+                        {{step.approverRole | titlecase}}
+
+                    </span>
+
+                </div>
+
+                @if(!last){
+
+                <div class="connector"></div>
+
+                }
+
+                }
+
+            </div>
+
+        </div>
+
+        <!-- ===========================
+             Approval History
+        ============================ -->
+
+        <div class="info-card">
+
+            <h3 class="card-title">
+                Approval History
+            </h3>
+
+            @if(request.approvalHistory.length){
+
+            @for(history of request.approvalHistory;
+            track history.step){
+
+            <div class="history-item">
+
+                <div class="history-top">
+
+                    <strong>
+
+                        {{history.role | titlecase}}
+
+                    </strong>
+
+                    <span>
+
+                        {{history.action}}
+
+                    </span>
+
+                </div>
+
+                <div class="history-body">
+
+                    {{history.comments || 'No comments'}}
+
+                </div>
+
+                <div class="history-footer">
+
+                    {{history.approver.firstName}}
+                    {{history.approver.lastName}}
+
+                    •
+
+                    {{history.actionAt | date:'medium'}}
+
+                </div>
+
+            </div>
+
+            }
+
+            }
+
+            @else{
+
+            <div class="empty-history">
+
+                No approvals yet.
+
+            </div>
+
+            }
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+
+    <div class="dialog-footer">
+
+        <button mat-stroked-button class="cancel-btn" (click)="dialogRef.close()">
+
+            Close
+
+        </button>
+
+    </div>
+
+</div>

@@ -54,8 +54,10 @@ import { RequestDetails } from '../request-details/request-details';
 })
 export class RequestList implements OnInit {
   isRequestLoading = false;
+  isTeamsLoading = false;
   isWorkflowLoading = false;
   requests: Request[] = [];
+  teams: Team[] = [];
   workflows: Workflow[] = [];
   workflowFilterOptions: FilterOption[] = [];
   displayedColumns = [
@@ -83,6 +85,7 @@ export class RequestList implements OnInit {
   requestFilters: FilterConfig[] = [];
 
   private requestService = inject(RequestService);
+  private teamService = inject(TeamService);
   private cdr = inject(ChangeDetectorRef);
   private dialog = inject(MatDialog);
   private workflowService = inject(WorkflowService);
@@ -98,6 +101,10 @@ export class RequestList implements OnInit {
     const dialogRef = this.dialog.open(RequestForm, {
       width: '900px',
       disableClose: true,
+      data: {
+        workflows: this.workflows,
+        teams: this.teams,
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -114,6 +121,7 @@ export class RequestList implements OnInit {
       data: {
         isEdit: true,
         request,
+        workflows: this.workflows,
       },
     });
 
@@ -126,7 +134,9 @@ export class RequestList implements OnInit {
 
   viewRequest(request: Request) {
     this.dialog.open(RequestDetails, {
-      width: '850px',
+      width: '1000px',
+      maxWidth: '95vw',
+      maxHeight: '90vh',
       disableClose: true,
       data: {
         requestId: request._id,
@@ -188,7 +198,7 @@ export class RequestList implements OnInit {
 
   loadRequests(): void {
     this.isRequestLoading = true;
-    console.log("here")
+    console.log('here');
     this.requestService
       .getRequests({
         search: this.searchControl.value,
@@ -245,7 +255,7 @@ export class RequestList implements OnInit {
     this.isWorkflowLoading = true;
     this.workflowService.getWorkflows().subscribe({
       next: (response) => {
-        this.workflows = response.data;
+        this.workflows = response.data.filter((workflow) => workflow.isActive);
         this.buildWorkflowFilters();
         this.buildFilters();
         this.isWorkflowLoading = false;

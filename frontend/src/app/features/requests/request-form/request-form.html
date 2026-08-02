@@ -1,1 +1,232 @@
-<p>request-form works!</p>
+<div class="dialog-container">
+
+    <!-- Header -->
+
+    <div class="dialog-header">
+
+        <div class="header-content">
+
+            <h2 class="dialog-title">
+                {{ isEdit ? 'Edit Request' : 'Create Request' }}
+            </h2>
+
+            <p class="dialog-subtitle">
+                {{ isEdit
+                ? 'Update your request.'
+                : 'Create a new request.' }}
+            </p>
+
+        </div>
+
+        <button mat-icon-button class="close-btn" (click)="dialogRef.close()">
+
+            <mat-icon>close</mat-icon>
+
+        </button>
+
+    </div>
+
+    <!-- Form -->
+
+    <form [formGroup]="requestForm" (ngSubmit)="save()">
+
+        <div class="dialog-body">
+
+            <div class="form-grid">
+
+                <!-- Title-->
+
+                <div class="form-field">
+
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>Request Title</mat-label>
+
+                        <input matInput formControlName="title">
+
+                    </mat-form-field>
+
+                    @if(requestForm.get('title')?.touched &&
+                    requestForm.get('title')?.hasError('required')){
+
+                    <small class="error">
+
+                        Title is required.
+
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- Description -->
+
+                <div class="form-field">
+
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>Description</mat-label>
+
+                        <textarea matInput formControlName="description"></textarea>
+
+                    </mat-form-field>
+
+                    @if(requestForm.get('description')?.touched &&
+                    requestForm.get('description')?.hasError('required')){
+
+                    <small class="error">
+
+                        Description is required.
+
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- Workflow -->
+
+                <div class="form-field">
+
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>Workflow</mat-label>
+
+                        <mat-select formControlName="workflow">
+
+                            @for(workflow of workflows; track workflow._id){
+
+                            <mat-option [value]="workflow._id">
+
+                                {{ workflow.name }}
+
+                            </mat-option>
+
+                            }
+
+                        </mat-select>
+
+                    </mat-form-field>
+
+                    @if(requestForm.get('workflow')?.touched &&
+                    requestForm.get('workflow')?.hasError('required')){
+
+                    <small class="error">
+
+                        Please select a workflow.
+
+                    </small>
+
+                    }
+
+                </div>
+
+                <!-- Priority -->
+
+                <div class="status-section form-field">
+
+                    <label class="status-label">
+
+                        Priority
+
+                    </label>
+
+                    <mat-radio-group class="status-group" formControlName="priority">
+
+                        <mat-radio-button value="High">
+
+                            High
+
+                        </mat-radio-button>
+
+                        <mat-radio-button value="Medium">
+
+                            Medium
+
+                        </mat-radio-button>
+
+                        <mat-radio-button value="Low">
+
+                            Low
+
+                        </mat-radio-button>
+
+                    </mat-radio-group>
+
+                </div>
+
+                <!-- Team -->
+
+                @if(isManager){
+
+                <div class="form-field">
+
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>Team</mat-label>
+
+                        <mat-select formControlName="team">
+
+                            @for(team of teams; track team._id){
+
+                            <mat-option [value]="team._id">
+
+                                {{ team.name }}
+
+                            </mat-option>
+
+                            }
+
+                        </mat-select>
+
+                    </mat-form-field>
+
+                    @if(requestForm.get('team')?.touched &&
+                    requestForm.get('team')?.hasError('required')){
+
+                    <small class="error">
+
+                        Please select a team.
+
+                    </small>
+
+                    }
+
+                </div>
+
+                }
+
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+
+        <div class="dialog-footer">
+
+            <button type="button" mat-stroked-button class="cancel-btn" (click)="dialogRef.close()">
+
+                Cancel
+
+            </button>
+
+            <button type="submit" mat-flat-button class="save-btn">
+
+                @if(isSaving){
+
+                Saving...
+
+                }
+                @else{
+
+                {{ isEdit ? 'Update Draft' : 'Save Draft' }}
+
+                }
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>

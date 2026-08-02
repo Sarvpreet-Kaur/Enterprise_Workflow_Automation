@@ -118,16 +118,10 @@
    Form Grid
 ========================================================= */
 
-.form-grid {
-
-    display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-
-    column-gap: 28px;
-
-    row-gap: 26px;
-
+.form-grid{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
 }
 
 /* =========================================================
@@ -671,10 +665,5 @@ mat-error {
 
     }
 
-    .form-grid {
-
-        grid-template-columns: 1fr;
-
-    }
 
 }
