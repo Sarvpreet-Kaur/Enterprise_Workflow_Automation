@@ -28,10 +28,13 @@ const updateRequest = async (req, res, next) => {
 
 const getRequests = async (req, res, next) => {
     try {
-        const request = await requestService.getRequests(req);
+        const result = await requestService.getRequests(req);
+        const request = result.data
+        const pagination = result.pagination
         res.status(200).json({
             success: true,
-            data: request
+            data: request,
+            pagination: pagination,
         });
     } catch (error) {
         next(error);

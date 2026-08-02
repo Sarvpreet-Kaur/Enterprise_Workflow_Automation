@@ -1,1 +1,274 @@
-<p>request-list works!</p>
+<section class="page-header">
+    <div>
+        <h1 class="page-title">
+            Requests
+        </h1>
+        <p class="page-subtitle">
+            Manage your requests.
+        </p>
+    </div>
+</section>
+
+<div class="toolbar-card">
+
+    <div class="search-input">
+        <mat-icon>
+            search
+        </mat-icon>
+        <input type="text" placeholder="Search requests" [formControl]="searchControl">
+    </div>
+
+    <app-filter-bar #filterBar [filters]="requestFilters" (filtersChanged)="onFiltersChanged($event)">
+    </app-filter-bar>
+
+    <button class="reset-btn" (click)="resetFilters()" mat-stroked-button>
+
+        Reset
+
+    </button>
+
+    <span class="toolbar-spacer"></span>
+
+    <button mat-flat-button color="primary" (click)="addRequest()">
+        <mat-icon>
+            add
+        </mat-icon>
+        Create Request
+    </button>
+
+</div>
+
+<div class="content-card" *ngIf="!isRequestLoading">
+    <div class="table-container">
+        @if(requests.length == 0){
+        <app-empty-state icon="description" title="No request exist"
+            description="There are no requests available."></app-empty-state>
+        }
+        @else{
+        <table mat-table [dataSource]="requests">
+
+            <!-- Title -->
+
+            <ng-container matColumnDef="title">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    Title
+
+                </th>
+
+                <td mat-cell *matCellDef="let request">
+
+                    {{ request.title }}
+
+                </td>
+
+            </ng-container>
+
+            <!-- Workflow -->
+
+            <ng-container matColumnDef="workflow">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    Workflow
+
+                </th>
+
+                <td mat-cell *matCellDef="let request">
+
+                    {{ request.workflow.name }}
+
+                </td>
+
+            </ng-container>
+
+            <!-- Team -->
+
+            <ng-container matColumnDef="team">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    Team
+
+                </th>
+
+                <td mat-cell *matCellDef="let request">
+
+                    {{ request.team.name }}
+
+                </td>
+
+            </ng-container>
+
+            <!-- Priority -->
+
+            <ng-container matColumnDef="priority">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    Priority
+
+                </th>
+
+                <td mat-cell *matCellDef="let request">
+
+                    <span class="priority-badge" [class.priority-low]="request.priority === 'Low'"
+                        [class.priority-medium]="request.priority === 'Medium'"
+                        [class.priority-high]="request.priority === 'High'">
+
+                        {{ request.priority }}
+
+                    </span>
+
+                </td>
+
+            </ng-container>
+
+            <!-- Status -->
+
+            <ng-container matColumnDef="status">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    Status
+
+                </th>
+
+                <td mat-cell *matCellDef="let request">
+
+                    <span class="status-badge" [ngClass]="{
+                    'status-draft': request.status === 'Draft',
+                    'status-pending': request.status === 'Pending',
+                    'status-approved': request.status === 'Approved',
+                    'status-rejected': request.status === 'Rejected',
+                    'status-cancelled': request.status === 'Cancelled'
+                }">
+
+                        {{ request.status }}
+
+                    </span>
+
+                </td>
+
+            </ng-container>
+
+            <!-- Current Approver -->
+
+            <ng-container matColumnDef="approver">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    Current Approver
+
+                </th>
+
+                <td mat-cell *matCellDef="let request">
+
+                    {{ request.currentApprover
+                    ? request.currentApprover.firstName + ' ' + request.currentApprover.lastName
+                    : '-' }}
+
+                </td>
+
+            </ng-container>
+
+            <!-- Submitted -->
+
+            <ng-container matColumnDef="submitted">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    Submitted
+
+                </th>
+
+                <td mat-cell *matCellDef="let request">
+
+                    {{ request.submittedAt ? (request.submittedAt | date:'dd MMM yyyy') : '-' }}
+
+                </td>
+
+            </ng-container>
+
+            <!-- Actions -->
+
+            <ng-container matColumnDef="actions">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    Actions
+
+                </th>
+
+                <td mat-cell *matCellDef="let request">
+
+                    <!-- View -->
+
+                    <button mat-icon-button (click)="viewRequest(request)" matTooltip="View">
+
+                        <mat-icon>
+
+                            visibility
+
+                        </mat-icon>
+
+                    </button>
+
+                    <!-- Edit Draft -->
+
+                    @if(request.status === 'Draft'){
+
+                    <button mat-icon-button (click)="editRequest(request)" matTooltip="Edit">
+
+                        <mat-icon>
+
+                            edit
+
+                        </mat-icon>
+
+                    </button>
+
+                    <button mat-icon-button (click)="submitRequest(request)" matTooltip="Submit">
+
+                        <mat-icon>
+
+                            send
+
+                        </mat-icon>
+
+                    </button>
+
+                    }
+
+                    <!-- Cancel Pending -->
+
+                    @if(request.status === 'Pending'){
+
+                    <button mat-icon-button (click)="cancelRequest(request)" matTooltip="Cancel">
+
+                        <mat-icon>
+
+                            cancel
+
+                        </mat-icon>
+
+                    </button>
+
+                    }
+
+                </td>
+
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        }
+    </div>
+</div>
+<mat-paginator [length]="pagination.totalRecords" [pageSize]="pagination.pageSize"
+    [pageIndex]="pagination.currentPage - 1" [pageSizeOptions]="[5, 10, 20, 50]" (page)="onPageChange($event)">
+</mat-paginator>
