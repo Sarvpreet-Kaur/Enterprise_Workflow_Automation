@@ -1,7 +1,7 @@
 const { ROLES } = require('../constants/roles');
 const Team = require('../models/teamSchema');
 const User = require('../models/userSchema');
-const ApiError = require('../utils/ApiError')
+const ApiError = require('../utils/apiError')
 
 exports.createTeam = async(req, res)=>{
     const data = req.body

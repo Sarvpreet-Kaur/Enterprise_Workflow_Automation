@@ -1,6 +1,6 @@
 const { ROLES } = require("../constants/roles");
 const Workflow = require("../models/workflowSchema");
-const ApiError = require("../utils/ApiError");
+const ApiError = require("../utils/apiError");
 
 exports.createWorkflow = async (data) => {
 
